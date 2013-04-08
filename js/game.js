@@ -6,6 +6,7 @@ var world = boxbox.createWorld(canvasElem, {
 });
 
 var MAX_SPEED = 300;
+var DESTROY_DELAY = 2000;
 
 var player = world.createEntity({
     name: 'player',
@@ -33,7 +34,9 @@ var character = {
     shape: 'square',
     onImpact: function(entity, force) {
         if (entity.name() !== 'ground') {
-            this.destroy();
+            setTimeout($.proxy(function() {
+                this.destroy();
+            }, this), DESTROY_DELAY);
         }
     }
 }
@@ -83,7 +86,7 @@ var offsetEnd;
 $(window).on('mousedown', function(e) {
     offsetStart = {
         x:e.offsetX,
-    y:e.offsetY
+        y:e.offsetY
     };
 });
 
@@ -91,7 +94,7 @@ $(window).on('mouseup', function(e) {
 
     offsetEnd = {
         x:e.pageX,
-    y:e.pageY,
+        y:e.pageY,
     };
 
     var dragDistance = offsetStart.x + offsetEnd.x
