@@ -1,6 +1,6 @@
 var canvasElem = document.getElementById('game');
 var world = boxbox.createWorld(canvasElem, {
-    //collisionOutlines:true,
+    collisionOutlines:true,
     width:1000,
     height:500
 });
@@ -11,7 +11,7 @@ var player = world.createEntity({
   name: 'player',
   shape: 'circle',
   radius: 1,
-  image: 'img/pig.png',
+  image: 'img/player.png',
   imageStretchToFit: true,
   density: 4,
   x: 2
@@ -58,8 +58,6 @@ world.createEntity(block, {
 var character = {
     name: 'character',
     shape: 'square',
-    density: 1,
-    imageStretchToFit:true,
     onImpact: function(entity, force) {
         if (entity.name() === 'player') {
             this.destroy();
@@ -67,15 +65,47 @@ var character = {
     }
 }
 
+/*
 world.createEntity(character, {
     image: 'img/green-character.png',
     x:8,
-    width:2,
-    height:4,
-    imageOffsetX:-.5,
-    imageOffsetY:-1,
+    width:2.6,
+    height:3.3,
+    imageOffsetX:-.6,
+    imageOffsetY:-1.1,
 });
+*/
 
+/*
+world.createEntity(character, {
+    image: 'img/red-character.png',
+    x:5,
+    width:1,
+    height:1,
+    imageOffsetX:-.25,
+    imageOffsetY:-.25,
+});
+*/
+
+/*
+world.createEntity(character, {
+    image: 'img/blue-character.png',
+    x:5,
+    width:1.5,
+    height:1.2,
+    imageOffsetX:-.4,
+    imageOffsetY:-.3,
+});
+*/
+
+world.createEntity(character, {
+    image: 'img/yellow-character.png',
+    x:5,
+    width:1.5,
+    height:2.8,
+    imageOffsetX:-.4,
+    imageOffsetY:-.7,
+});
 
 var offsetStart;
 var offsetEnd;
@@ -118,6 +148,5 @@ setInterval(function() {
     position.y = 0;
     position.x -= 10;
     world.camera(position);
-    world.scale(5);
 }, 1);
  
