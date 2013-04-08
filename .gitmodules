@@ -1,0 +1,3 @@
+[submodule "js/lib/boxbox"]
+	path = js/lib/boxbox
+	url = git://github.com/incompl/boxbox.git
