@@ -1,6 +1,6 @@
 var canvasElem = document.getElementById('game');
 var world = boxbox.createWorld(canvasElem, {
-    collisionOutlines:true,
+    //collisionOutlines:true,
     width:1000,
     height:500
 });
@@ -52,7 +52,7 @@ world.createEntity(character, {
 
 world.createEntity(character, {
     image: 'img/red-character.png',
-    x:10,
+    x:20,
     width:1,
     height:1,
     imageOffsetX:-.25,
@@ -61,7 +61,7 @@ world.createEntity(character, {
 
 world.createEntity(character, {
     image: 'img/blue-character.png',
-    x:20,
+    x:10,
     width:1.5,
     height:1.2,
     imageOffsetX:-.4,
@@ -83,25 +83,35 @@ createBridgeAtPosition({ x:45, y:0 });
 
 var offsetStart;
 var offsetEnd;
+var angle;
+var speed;
+var clicked = false;
 $(window).on('mousedown', function(e) {
     offsetStart = {
         x:e.offsetX,
         y:e.offsetY
     };
+    clicked = true;
+});
+
+$(window).on('mousemove', function(e) {
+    if (!clicked) return;
+    offsetEnd = {
+        x:e.offsetX,
+        y:e.offsetY,
+    };
+    var dragDistance = offsetStart.x - offsetEnd.x;
+    console.log(dragDistance);
+    console.log(offsetStart.x);
+    console.log(offsetEnd.x);
+    speed = Math.min(dragDistance, MAX_SPEED);
+    angle = getAngle(offsetEnd, offsetStart);
+    updateStats()
 });
 
 $(window).on('mouseup', function(e) {
-
-    offsetEnd = {
-        x:e.pageX,
-        y:e.pageY,
-    };
-
-    var dragDistance = offsetStart.x + offsetEnd.x
-    var speed = Math.min(dragDistance, MAX_SPEED);
-var degree = getAngle(offsetEnd, offsetStart);
-
-player.applyImpulse(speed, degree);
+    player.applyImpulse(speed, angle);
+    clicked = false;
 });
 
 function getAngle(startPosition, endPosition) {
@@ -168,4 +178,9 @@ function createBridgeAtPosition(position) {
         width: 4,
         height: .5
     });
+}
+
+function updateStats() {
+    $('#stats .angle').html(Math.round(angle));
+    $('#stats .speed').html(speed + '/300');
 }
