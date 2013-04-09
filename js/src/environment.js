@@ -90,6 +90,11 @@ define([], function() {
                     $(window).trigger('game.over');
                 }
             }, this));
+
+            $(window).on('drag.strength', $.proxy(function(e, strength) {
+                if (!strength) return;
+                this.player.image('img/player-' + strength + '.png');
+            },this));
         },
 
         wallTemplate: {
@@ -104,7 +109,7 @@ define([], function() {
         playerTemplate: {
             name: 'player',
             shape: 'circle',
-            image: 'img/player1.png',
+            image: 'img/player-weak.png',
             imageStretchToFit: true,
             maxVelocityX: this.MAX_SPEED,
             maxVelocityY: this.MAX_SPEED,

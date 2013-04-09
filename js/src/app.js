@@ -37,6 +37,10 @@ define(['src/environment'], function(environment) {
 
                 var dragDistance = Math.abs(this.offsetStart.x - this.offsetEnd.x);
                 this.speed = Math.min(dragDistance, this.environment.MAX_SPEED);
+
+                var strength = this.getDragStrengthForSpeed(this.speed);
+                $(window).trigger('drag.strength', [strength]);
+
                 this.angle = this.getAngle(this.offsetEnd, this.offsetStart);
 
                 this.environment.player.rotation(this.angle);
@@ -81,6 +85,19 @@ define(['src/environment'], function(environment) {
                 position.x -= 10;
                 this.environment.world.camera(position);
             }, this), 1);
+        },
+
+        getDragStrengthForSpeed: function(speed) {
+            var strength = 'weak';
+            if (speed > this.environment.MAX_SPEED / 3 && speed < this.environment.MAX_SPEED / 2) {
+                strength = 'medium';
+            } else if (speed > this.environment.MAX_SPEED / 2 && speed < this.environment.MAX_SPEED) {
+                strength = 'strong';
+            } else if (speed === this.environment.MAX_SPEED) {
+                strength = 'max';
+            }
+
+            return strength;
         }
     };
 
