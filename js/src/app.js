@@ -35,8 +35,8 @@ define(['src/environment'], function(environment) {
                     y:e.screenY,
                 };
 
-                var dragDistance = this.offsetStart.x - this.offsetEnd.x;
-                this.speed = Math.abs(Math.min(dragDistance, this.environment.MAX_SPEED));
+                var dragDistance = Math.abs(this.offsetStart.x - this.offsetEnd.x);
+                this.speed = Math.min(dragDistance, this.environment.MAX_SPEED);
                 this.angle = this.getAngle(this.offsetEnd, this.offsetStart);
 
                 this.environment.player.rotation(this.angle);

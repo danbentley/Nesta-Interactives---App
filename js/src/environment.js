@@ -19,7 +19,7 @@ define([], function() {
             this.addListeners();
 
             this.world = this.createWorld({
-                collisionOutlines:true,
+                //collisionOutlines:true,
                 width:1000,
                 height:500
             });
@@ -106,6 +106,8 @@ define([], function() {
             shape: 'circle',
             image: 'img/player1.png',
             imageStretchToFit: true,
+            maxVelocityX: this.MAX_SPEED,
+            maxVelocityY: this.MAX_SPEED,
             density: 4,
             x: 0
         },
