@@ -70,7 +70,7 @@ define(['src/environment'], function(environment) {
 
         updateStats: function() {
             $('#stats .angle').html(Math.round(this.angle));
-            $('#stats .speed').html(this.speed + '/400');
+            $('#stats .speed').html(this.speed + '/' + this.environment.MAX_SPEED);
         },
         
         makeCameraFollowPlayer: function() {

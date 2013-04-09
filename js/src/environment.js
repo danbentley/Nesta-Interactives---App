@@ -117,6 +117,12 @@ define([], function() {
             shape: 'square',
             onImpact: function(entity, force) {
                 if (entity.name() === 'ground') return;
+
+                var img = this.image();
+                if (!img.match(/dead/)) {
+                    this.image(img.replace(/\.png/, '-dead.png'));
+                }
+
                 var DESTROY_DELAY = 2000;
                 setTimeout($.proxy(function() {
                     this.destroy();
