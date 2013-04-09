@@ -24,6 +24,9 @@ $(window).on('mousemove', function(e) {
     var dragDistance = offsetStart.x - offsetEnd.x;
     speed = Math.abs(Math.min(dragDistance, MAX_SPEED));
     angle = getAngle(offsetEnd, offsetStart);
+
+    player.rotation(angle);
+
     updateStats()
 });
 
