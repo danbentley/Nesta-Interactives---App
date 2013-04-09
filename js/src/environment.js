@@ -10,7 +10,13 @@ define([], function() {
 
         player: null,
 
+        characterCount: 0,
+
+        destroyedCharacterIds: [],
+
         init: function() {
+
+            this.addListeners();
 
             this.world = this.createWorld({
                 collisionOutlines:true,
@@ -71,6 +77,21 @@ define([], function() {
             this.player = this.createPlayer();
         },
 
+        addListeners: function() {
+
+            $(window).on('character.destroyed', $.proxy(function(e, character) {
+
+                if (this.destroyedCharacterIds.indexOf(character._id) !== -1) return;
+
+                this.destroyedCharacterIds.push(character._id);
+
+                this.characterCount--;
+                if (this.characterCount === 0) {
+                    $(window).trigger('game.over');
+                }
+            }, this));
+        },
+
         wallTemplate: {
             name: 'wall',
             shape: 'square',
@@ -97,6 +118,7 @@ define([], function() {
                 var DESTROY_DELAY = 2000;
                 setTimeout($.proxy(function() {
                     this.destroy();
+                    $(window).trigger('character.destroyed', [this]);
                 }, this), DESTROY_DELAY);
             }
         },
@@ -128,6 +150,7 @@ define([], function() {
         },
 
         createCharacter: function(options) {
+            this.characterCount++;
             return this.world.createEntity(this.characterTemplate, options);
         },
 

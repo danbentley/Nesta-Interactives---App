@@ -47,6 +47,10 @@ define(['src/environment'], function(environment) {
                 this.environment.player.applyImpulse(this.speed, this.angle);
                 this.clicked = false;
             }, this));
+
+            $(window).on('game.over', function() {
+                alert('game over');
+            });
         },
 
         getAngle: function(startPosition, endPosition) {
