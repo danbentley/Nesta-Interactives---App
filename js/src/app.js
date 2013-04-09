@@ -28,7 +28,7 @@ define(['src/environment'], function(environment) {
 
             $(window).on('mousemove', $.proxy(function(e) {
 
-                if (!this.clicked) return;
+                if (!this.clicked || !this.canMovePlayer()) return;
 
                 this.offsetEnd = {
                     x:e.screenX,
@@ -49,6 +49,7 @@ define(['src/environment'], function(environment) {
             }, this));
 
             $(window).on('mouseup', $.proxy(function(e) {
+                if (!this.canMovePlayer()) return;
                 this.environment.player.applyImpulse(this.power, this.angle);
                 this.clicked = false;
             }, this));
@@ -103,6 +104,11 @@ define(['src/environment'], function(environment) {
         calculatePower: function() {
             var dragDistance = Math.abs(this.offsetStart.x - this.offsetEnd.x);
             return Math.min(dragDistance, this.environment.MAX_POWER);
+        },
+         
+        canMovePlayer: function() {
+            var velocity = this.environment.player._body.GetLinearVelocity();
+            return (Math.round(velocity.x) < 2 && Math.round(velocity.y) < 2);
         }
     };
 
