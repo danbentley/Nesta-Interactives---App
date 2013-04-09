@@ -22,16 +22,16 @@ $(window).on('mousemove', function(e) {
         y:e.offsetY,
     };
     var dragDistance = offsetStart.x - offsetEnd.x;
-    speed = Math.abs(Math.min(dragDistance, MAX_SPEED));
+    speed = Math.abs(Math.min(dragDistance, game.MAX_SPEED));
     angle = getAngle(offsetEnd, offsetStart);
 
-    player.rotation(angle);
+    game.player.rotation(angle);
 
     updateStats()
 });
 
 $(window).on('mouseup', function(e) {
-    player.applyImpulse(speed, angle);
+    game.player.applyImpulse(speed, angle);
     clicked = false;
 });
 
@@ -50,14 +50,14 @@ function getAngle(startPosition, endPosition) {
 
 // Follow make the camera follow the player .
 setInterval(function() {
-    var position = player.position();
+    var position = game.player.position();
     position.y = 0;
     position.x -= 10;
-    world.camera(position);
+    game.world.camera(position);
 }, 1);
 
 
 function updateStats() {
     $('#stats .angle').html(Math.round(angle));
-    $('#stats .speed').html(speed + '/300');
+    $('#stats .speed').html(speed + '/400');
 }
