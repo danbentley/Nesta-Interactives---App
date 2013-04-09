@@ -28,8 +28,6 @@ define([], function() {
 
         MAX_SPEED: 400,
 
-        DESTROY_DELAY: 2000,
-
         world: null,
 
         player: null,
@@ -117,11 +115,11 @@ define([], function() {
             name: 'character',
             shape: 'square',
             onImpact: function(entity, force) {
-                if (entity.name() !== 'ground') {
-                    setTimeout($.proxy(function() {
-                        this.destroy();
-                    }, this), this.DESTROY_DELAY);
-                }
+                if (entity.name() === 'ground') return;
+                var DESTROY_DELAY = 2000;
+                setTimeout($.proxy(function() {
+                    this.destroy();
+                }, this), DESTROY_DELAY);
             }
         },
 
