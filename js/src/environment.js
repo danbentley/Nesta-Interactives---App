@@ -113,7 +113,7 @@ define(['boxbox'], function() {
             imageStretchToFit: true,
             maxVelocityX: this.MAX_POWER,
             maxVelocityY: this.MAX_POWER,
-            density: 4,
+            density: 5,
             x: 0
         },
 
