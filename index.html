@@ -1,9 +1,6 @@
 <!doctype html>
 <html>
   <head>
-    <script src="js/lib/box2dweb/box2dweb-2.1.a.3.js"></script>
-    <script src="js/lib/boxbox/boxbox.js"></script>
-    <script src="js/lib/jquery.min.js"></script>
   </head>
   <body>
     <canvas id="game" width=1000 height=360>
@@ -11,8 +8,19 @@
     </canvas>
     <div id="stats">
         Angle: <span class="angle"></span>
-        Power: <span class="speed"></span>
+        Power: <span class="power"></span>
     </div>
 		<script data-main="js/main.js" src="js/require-jquery.js"></script>
+        <script type="text/javascript">
+            require.config({
+                shim: {
+                    'boxbox': ['box2dweb']
+                },
+                paths: {
+                    'boxbox': 'lib/boxbox/boxbox.min',
+                    'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min'
+                }
+            });
+        </script>
   </body>
 </html>

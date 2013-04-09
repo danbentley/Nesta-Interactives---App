@@ -5,7 +5,7 @@ define(['src/environment'], function(environment) {
         offsetStart: null,
         offsetEnd: null,
         angle: null,
-        speed: null,
+        power: null,
         clicked: false,
         environment: null,
 
@@ -35,10 +35,10 @@ define(['src/environment'], function(environment) {
                     y:e.screenY,
                 };
 
-                var dragDistance = Math.abs(this.offsetStart.x - this.offsetEnd.x);
-                this.speed = Math.min(dragDistance, this.environment.MAX_SPEED);
 
-                var strength = this.getDragStrengthForSpeed(this.speed);
+                this.power = this.calculatePower();
+
+                var strength = this.getDragStrengthForPower(this.power);
                 $(window).trigger('drag.strength', [strength]);
 
                 this.angle = this.getAngle(this.offsetEnd, this.offsetStart);
@@ -49,7 +49,7 @@ define(['src/environment'], function(environment) {
             }, this));
 
             $(window).on('mouseup', $.proxy(function(e) {
-                this.environment.player.applyImpulse(this.speed, this.angle);
+                this.environment.player.applyImpulse(this.power, this.angle);
                 this.clicked = false;
             }, this));
 
@@ -74,7 +74,7 @@ define(['src/environment'], function(environment) {
 
         updateStats: function() {
             $('#stats .angle').html(Math.round(this.angle));
-            $('#stats .speed').html(this.speed + '/' + this.environment.MAX_SPEED);
+            $('#stats .power').html(this.power + '/' + this.environment.MAX_POWER);
         },
         
         makeCameraFollowPlayer: function() {
@@ -87,17 +87,22 @@ define(['src/environment'], function(environment) {
             }, this), 1);
         },
 
-        getDragStrengthForSpeed: function(speed) {
+        getDragStrengthForPower: function(power) {
             var strength = 'weak';
-            if (speed > this.environment.MAX_SPEED / 3 && speed < this.environment.MAX_SPEED / 2) {
+            if (power > this.environment.MAX_POWER / 3 && power < this.environment.MAX_POWER / 2) {
                 strength = 'medium';
-            } else if (speed > this.environment.MAX_SPEED / 2 && speed < this.environment.MAX_SPEED) {
+            } else if (power > this.environment.MAX_POWER / 2 && power < this.environment.MAX_POWER) {
                 strength = 'strong';
-            } else if (speed === this.environment.MAX_SPEED) {
+            } else if (power === this.environment.MAX_POWER) {
                 strength = 'max';
             }
 
             return strength;
+        },
+
+        calculatePower: function() {
+            var dragDistance = Math.abs(this.offsetStart.x - this.offsetEnd.x);
+            return Math.min(dragDistance, this.environment.MAX_POWER);
         }
     };
 
