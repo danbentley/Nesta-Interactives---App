@@ -19,9 +19,9 @@ define(['src/environment'], function(environment) {
         addListeners: function() {
 
             $(window).on('mousedown', $.proxy(function(e) {
-                offsetStart = {
-                    x:e.offsetX,
-                    y:e.offsetY
+                this.offsetStart = {
+                    x:e.screenX,
+                    y:e.screenY
                 };
                 this.clicked = true;
             }, this));
@@ -30,13 +30,14 @@ define(['src/environment'], function(environment) {
 
                 if (!this.clicked) return;
 
-                offsetEnd = {
-                    x:e.offsetX,
-                    y:e.offsetY,
+                this.offsetEnd = {
+                    x:e.screenX,
+                    y:e.screenY,
                 };
-                var dragDistance = offsetStart.x - offsetEnd.x;
+
+                var dragDistance = this.offsetStart.x - this.offsetEnd.x;
                 this.speed = Math.abs(Math.min(dragDistance, this.environment.MAX_SPEED));
-                this.angle = this.getAngle(offsetEnd, offsetStart);
+                this.angle = this.getAngle(this.offsetEnd, this.offsetStart);
 
                 this.environment.player.rotation(this.angle);
 
@@ -54,16 +55,17 @@ define(['src/environment'], function(environment) {
         },
 
         getAngle: function(startPosition, endPosition) {
-            var calcAngle = Math.atan2(startPosition.x - endPosition.x, startPosition.y - endPosition.y) * (180 / Math.PI);	
+            var angle = Math.atan2(startPosition.x - endPosition.x, startPosition.y - endPosition.y) * (180 / Math.PI);	
+
             // To atan2 returns a range of -180 to 180 which is perfect
             // for CSS3 rotation but not here where we'd prefer a range
             // between 0 and 360
-            if(calcAngle < 0) {
-                calcAngle = Math.abs(calcAngle);
+            if(angle > 0) {
+                angle = 360 - angle;		
             } else {
-                calcAngle = 360 - calcAngle;		
+                angle = Math.abs(angle);
             }
-            return calcAngle;
+            return angle;
         },
 
         updateStats: function() {
