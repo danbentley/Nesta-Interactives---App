@@ -1,4 +1,4 @@
-define(['boxbox'], function() {
+define(['boxbox', 'src/character'], function(box, Character) {
 
     return {
 
@@ -6,9 +6,14 @@ define(['boxbox'], function() {
 
         world: null,
 
+        // todo replace with enemies.length
         characterCount: 0,
 
+        enemies: [],
+
         destroyedCharacterIds: [],
+
+        ready: false,
 
         wallTemplate: {
             name: 'wall',
@@ -20,39 +25,30 @@ define(['boxbox'], function() {
             width: 25
         }, 
 
-        characterTemplate: {
-            name: 'character',
-            shape: 'square',
-            onImpact: function(entity, force) {
-                if (entity.name() === 'ground') return;
-
-                var img = this.image();
-                if (!img.match(/dead/)) {
-                    this.image(img.replace(/\.png/, '-dead.png'));
-                }
-
-                var DESTROY_DELAY = 2000;
-                setTimeout($.proxy(function() {
-                    this.destroy();
-                    $(window).trigger('character.destroyed', [this]);
-                }, this), DESTROY_DELAY);
-            }
-        },
-
         groundTemplate: {
             name: 'ground',
             shape: 'square',
             type: 'static',
-            color: 'rgb(231, 227, 221)',
-            borderColor: 'rgb(231, 227, 221)',
+            color: 'rgb(101, 101, 101)',
+            borderColor: 'rgb(101, 101, 101)',
             width: 500,
             height: 2,
             y: 12
         },
 
+        blockTemplate: {
+            name: 'block',
+            shape: 'square',
+            color: 'rgb(206, 206, 206)',
+            borderColor: 'rgb(206, 206, 206)',
+            width: .5,
+            height: 4
+        },
+
         init: function() {
 
             this.addListeners();
+            this.startReadyTimer();
 
             this.world = this.createWorld({
                 //collisionOutlines:true,
@@ -62,6 +58,8 @@ define(['boxbox'], function() {
 
             this.createGround();
 
+            this.characters = this.createCharacters();
+
             this.createWall({
                 x: 80
             });
@@ -70,45 +68,15 @@ define(['boxbox'], function() {
                 x: -25
             });
 
-            this.createCharacter({
-                image: 'img/green-character.png',
-                x:25,
-                width:2.6,
-                height:3.3,
-                imageOffsetX:-.6,
-                imageOffsetY:-1.1
-            });
-
-            this.createCharacter({
-                image: 'img/red-character.png',
-                x:20,
-                width:1,
-                height:1,
-                imageOffsetX:-.25,
-                imageOffsetY:-.25
-            });
-
-            this.createCharacter({
-                image: 'img/blue-character.png',
-                x:10,
-                width:1.5,
-                height:1.2,
-                imageOffsetX:-.4,
-                imageOffsetY:-.3
-            });
-
-            this.createCharacter({
-                image: 'img/yellow-character.png',
-                x:40,
-                width:1.5,
-                height:2.8,
-                imageOffsetX:-.4,
-                imageOffsetY:-.7
-            });
-
             this.createBridgeAtPosition({ x:15, y:0 });
             this.createBridgeAtPosition({ x:30, y:0 });
             this.createBridgeAtPosition({ x:45, y:0 });
+        },
+
+        startReadyTimer: function() {
+            setTimeout($.proxy(function() {
+                this.ready = true;
+            }, this), 2000);
         },
 
         addListeners: function() {
@@ -126,6 +94,52 @@ define(['boxbox'], function() {
             }, this));
         },
 
+        createCharacters: function() {
+
+            var enemies = [];
+            enemies.push(new Character({
+                world: this.world,
+                image: 'img/green-character.png',
+                x:25,
+                width:2.6,
+                height:3.3,
+                imageOffsetX:-.6,
+                imageOffsetY:-1.1
+            }));
+
+            enemies.push(new Character({
+                world: this.world,
+                image: 'img/red-character.png',
+                x:20,
+                width:1,
+                height:1,
+                imageOffsetX:-.25,
+                imageOffsetY:-.25
+            }));
+
+            enemies.push(new Character({
+                world: this.world,
+                image: 'img/blue-character.png',
+                x:10,
+                width:1.5,
+                height:1.2,
+                imageOffsetX:-.4,
+                imageOffsetY:-.3
+            }));
+
+            enemies.push(new Character({
+                world: this.world,
+                image: 'img/yellow-character.png',
+                x:40,
+                width:1.5,
+                height:2.8,
+                imageOffsetX:-.4,
+                imageOffsetY:-.7
+            }));
+
+            return enemies;
+        },
+
         createWall: function(options) {
             return this.world.createEntity(this.wallTemplate, options);
         },
@@ -138,46 +152,32 @@ define(['boxbox'], function() {
             return this.world.createEntity(this.groundTemplate, options);
         },
 
-        createCharacter: function(options) {
-            this.characterCount++;
-            return this.world.createEntity(this.characterTemplate, options);
-        },
-
         createBridgeAtPosition: function(position) {
 
-            var block = {
-                name: 'block',
-                shape: 'square',
-                color:'rgb(205, 205, 207)',
-                borderColor:'rgb(205, 205, 207)',
-                width: .5,
-                height: 4
-            };
-
-            this.world.createEntity(block, {
+            this.world.createEntity(this.blockTemplate, {
                 x: position.x
             });
 
-            this.world.createEntity(block, {
+            this.world.createEntity(this.blockTemplate, {
                 x: position.x + 2
             });
 
-            this.world.createEntity(block, {
+            this.world.createEntity(this.blockTemplate, {
                 x: position.x + 4
             });
 
-            this.world.createEntity(block, {
+            this.world.createEntity(this.blockTemplate, {
                 x: position.x + 6
             });
 
-            this.world.createEntity(block, {
+            this.world.createEntity(this.blockTemplate, {
                 x: position.x + 1,
                 y: 1,
                 width: 4,
                 height: .5
             });
 
-            this.world.createEntity(block, {
+            this.world.createEntity(this.blockTemplate, {
                 x: position.x + 5,
                 y: 1,
                 width: 4,

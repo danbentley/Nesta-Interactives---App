@@ -2,8 +2,6 @@ define(['boxbox'], function() {
 
     return {
 
-        player: null,
-
         MAX_POWER: 400,
 
         world: null,
@@ -32,7 +30,6 @@ define(['boxbox'], function() {
             this.startUpdateInterval();
 
             this.world = options.world;
-
             this.entity = this.createPlayer(options);
         },
 
