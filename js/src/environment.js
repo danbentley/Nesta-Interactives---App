@@ -46,7 +46,6 @@ define(['boxbox', 'src/character'], function(box, Character) {
         init: function() {
 
             this.addListeners();
-            this.startReadyTimer();
 
             this.world = this.createWorld({
                 //collisionOutlines:true,
@@ -74,12 +73,6 @@ define(['boxbox', 'src/character'], function(box, Character) {
             this.createBridgeAtPosition({ x:47, y:-5 });
 
             this.createPedestalAtPosition({ x: -4, y:0 });
-        },
-
-        startReadyTimer: function() {
-            setTimeout($.proxy(function() {
-                $(window).trigger('world.ready');
-            }, this), 2000);
         },
 
         addListeners: function() {
@@ -169,9 +162,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 x: position.x,
                 y: position.y,
                 height: 2,
-                width: 2,
-                color: 'red',
-                borderColor: 'red'
+                width: 2
             });
         },
 

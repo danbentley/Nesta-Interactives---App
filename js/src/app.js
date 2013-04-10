@@ -70,7 +70,7 @@ define(['src/environment', 'src/player'], function(environment, player) {
             }, this));
 
             $(window).on('game.over', function() {
-                alert('game over');
+               console.log('game over');
             });
         },
 
@@ -87,6 +87,7 @@ define(['src/environment', 'src/player'], function(environment, player) {
                 this.environment.world.scale(newScale);
                 if (newScale > this.MAX_SCALE) {
                     clearInterval(this.zoomInterval);
+                    $(window).trigger('world.ready');
                 }
             }, this), 1);
         },

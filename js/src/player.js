@@ -43,6 +43,7 @@ define(['boxbox'], function() {
         },
 
         startUpdateInterval: function() {
+            return;
             clearInterval(this.updateInterval);
             this.updateInterval = setInterval($.proxy(function() {
                 this.updateImage();
