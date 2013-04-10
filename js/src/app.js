@@ -4,8 +4,9 @@ define(['src/environment'], function(environment) {
 
         offsetStart: null,
         offsetEnd: null,
-        angle: null,
-        power: null,
+        angle: 0,
+        power: 0,
+        shotCount: 0,
         clicked: false,
         environment: null,
 
@@ -52,6 +53,10 @@ define(['src/environment'], function(environment) {
                 if (!this.canMovePlayer()) return;
                 this.environment.player.applyImpulse(this.power, this.angle);
                 this.clicked = false;
+                this.power = 0;
+                this.angle = 0;
+                this.shotCount++;
+                this.updateStats()
             }, this));
 
             $(window).on('game.over', function() {
@@ -76,6 +81,7 @@ define(['src/environment'], function(environment) {
         updateStats: function() {
             $('#stats .angle').html(Math.round(this.angle));
             $('#stats .power').html(this.power + '/' + this.environment.MAX_POWER);
+            $('#stats .shot-count').html(this.shotCount);
         },
         
         makeCameraFollowPlayer: function() {
