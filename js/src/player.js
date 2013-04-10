@@ -2,8 +2,6 @@ define(['boxbox'], function() {
 
     return {
 
-        player: null,
-
         MAX_POWER: 400,
 
         world: null,
@@ -16,21 +14,6 @@ define(['boxbox'], function() {
 
         updateInterval: null,
 
-        init: function(options) {
-
-            this.startUpdateInterval();
-
-            this.world = options.world;
-
-            this.entity = this.createPlayer(options);
-        },
-
-        startUpdateInterval: function() {
-            this.updateInterval = setInterval($.proxy(function() {
-                this.updateImage();
-            }, this), 100);
-        },
-
         playerTemplate: {
             name: 'player',
             shape: 'circle',
@@ -40,6 +23,20 @@ define(['boxbox'], function() {
             maxVelocityY: this.MAX_POWER,
             density: 5,
             x: 0
+        },
+
+        init: function(options) {
+
+            this.startUpdateInterval();
+
+            this.world = options.world;
+            this.entity = this.createPlayer(options);
+        },
+
+        startUpdateInterval: function() {
+            this.updateInterval = setInterval($.proxy(function() {
+                this.updateImage();
+            }, this), 100);
         },
 
         createPlayer: function(options) {
