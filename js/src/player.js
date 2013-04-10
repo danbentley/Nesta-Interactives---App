@@ -14,6 +14,12 @@ define(['boxbox'], function() {
 
         updateInterval: null,
 
+        monitorInterval: null,
+
+        options: [],
+
+        active: false,
+
         playerTemplate: {
             name: 'player',
             shape: 'circle',
@@ -28,15 +34,28 @@ define(['boxbox'], function() {
 
         init: function(options) {
 
+            this.options = options;
+
             this.startUpdateInterval();
 
             this.world = options.world;
-            this.entity = this.createPlayer(options);
+            this.entity = this.createPlayer(this.options);
         },
 
         startUpdateInterval: function() {
+            clearInterval(this.updateInterval);
             this.updateInterval = setInterval($.proxy(function() {
                 this.updateImage();
+            }, this), 100);
+        },
+
+        startMonitorInterval: function() {
+            clearInterval(this.monitorInterval);
+            this.monitorInterval = setInterval($.proxy(function() {
+                if (this.isStopped() && this.active) {
+                    this.restart();
+                    clearInterval(this.monitorInterval);
+                }
             }, this), 100);
         },
 
@@ -88,6 +107,8 @@ define(['boxbox'], function() {
             this.entity.applyImpulse(this.power, this.angle);
             $(window).trigger('player.fired');
             this.reset();
+            this.active = true;
+            this.startMonitorInterval();
         },
 
         reset: function() {
@@ -102,6 +123,26 @@ define(['boxbox'], function() {
 
         updateImageWithStrength: function(strength) {
             this.entity.image('img/player-' + strength + '.png');
+        },
+
+        isStopped: function() {
+            var velocity = this.entity._body.GetLinearVelocity();
+            var MARGIN = 0.02;
+            return ((velocity.x < MARGIN && velocity.x > MARGIN * -1) 
+                    && (velocity.y < 0.02 && velocity.y > MARGIN * -1));
+        },
+
+        restart: function() {
+            setTimeout($.proxy(function() {
+                this.destroy();
+                this.entity = this.createPlayer(this.options);
+            }, this), 1000);
+        },
+
+        destroy: function() {
+            this.active = false;
+            this.reset();
+            this.entity.destroy();
         }
     };
 });
