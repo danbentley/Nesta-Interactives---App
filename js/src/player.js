@@ -4,6 +4,8 @@ define(['boxbox'], function() {
 
         player: null,
 
+        MAX_POWER: 400,
+
         world: null,
 
         entity: null,
@@ -12,20 +14,21 @@ define(['boxbox'], function() {
 
         power: 0,
 
+        updateInterval: null,
+
         init: function(options) {
 
-            this.addListeners();
+            this.startUpdateInterval();
 
             this.world = options.world;
 
             this.entity = this.createPlayer(options);
         },
 
-        addListeners: function() {
-            $(window).on('drag.strength', $.proxy(function(e, strength) {
-                if (!strength) return;
-                this.entity.image('img/player-' + strength + '.png');
-            },this));
+        startUpdateInterval: function() {
+            this.updateInterval = setInterval($.proxy(function() {
+                this.updateImage();
+            }, this), 100);
         },
 
         playerTemplate: {
@@ -66,6 +69,23 @@ define(['boxbox'], function() {
             this.power = power;
         },
 
+        calculatePowerFromDrag: function(dragDistance) {
+            return Math.min(dragDistance, this.MAX_POWER);
+        },
+
+        getDragStrengthForPower: function(power) {
+            var strength = 'weak';
+            if (power > this.MAX_POWER / 3 && power < this.MAX_POWER / 2) {
+                strength = 'medium';
+            } else if (power > this.MAX_POWER / 2 && power < this.MAX_POWER) {
+                strength = 'strong';
+            } else if (power === this.MAX_POWER) {
+                strength = 'max';
+            }
+
+            return strength;
+        },
+
         fire: function() {
             this.entity.applyImpulse(this.power, this.angle);
             $(window).trigger('player.fired');
@@ -75,6 +95,15 @@ define(['boxbox'], function() {
         reset: function() {
             this.power = 0;
             this.angle = 0;
+        },
+
+        updateImage: function() {
+            var strength = this.getDragStrengthForPower(this.power);
+            this.updateImageWithStrength(strength);
+        },
+
+        updateImageWithStrength: function(strength) {
+            this.entity.image('img/player-' + strength + '.png');
         }
     };
 });

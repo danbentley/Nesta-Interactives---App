@@ -4,8 +4,6 @@ define(['boxbox'], function() {
 
         $canvas: document.getElementById('game'),
 
-        MAX_POWER: 400,
-
         world: null,
 
         characterCount: 0,

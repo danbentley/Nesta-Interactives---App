@@ -43,11 +43,9 @@ define(['src/environment', 'src/player'], function(environment, player) {
                     y:e.screenY,
                 };
 
-                var power = this.calculatePower();
+                this.dragDistance = this.getDragDistance();
+                var power = this.player.calculatePowerFromDrag(this.dragDistance);
                 this.player.setPower(power);
-
-                var strength = this.getDragStrengthForPower(this.player.power);
-                $(window).trigger('drag.strength', [strength]);
 
                 var angle = this.player.getAngle(this.offsetEnd, this.offsetStart);
                 this.player.setAngle(angle);
@@ -75,7 +73,7 @@ define(['src/environment', 'src/player'], function(environment, player) {
 
         updateStats: function() {
             $('#stats .angle').html(Math.round(this.player.angle));
-            $('#stats .power').html(this.player.power + '/' + this.environment.MAX_POWER);
+            $('#stats .power').html(this.player.power + '/' + this.player.MAX_POWER);
             $('#stats .shot-count').html(this.shotCount);
         },
         
@@ -89,22 +87,9 @@ define(['src/environment', 'src/player'], function(environment, player) {
             }, this), 1);
         },
 
-        getDragStrengthForPower: function(power) {
-            var strength = 'weak';
-            if (power > this.environment.MAX_POWER / 3 && power < this.environment.MAX_POWER / 2) {
-                strength = 'medium';
-            } else if (power > this.environment.MAX_POWER / 2 && power < this.environment.MAX_POWER) {
-                strength = 'strong';
-            } else if (power === this.environment.MAX_POWER) {
-                strength = 'max';
-            }
 
-            return strength;
-        },
-
-        calculatePower: function() {
-            var dragDistance = Math.abs(this.offsetStart.x - this.offsetEnd.x);
-            return Math.min(dragDistance, this.environment.MAX_POWER);
+        getDragDistance: function() {
+            return Math.abs(this.offsetStart.x - this.offsetEnd.x);
         }
     };
 
