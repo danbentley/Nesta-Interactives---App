@@ -6,7 +6,6 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
         world: null,
 
-        // todo replace with enemies.length
         characterCount: 0,
 
         enemies: [],
@@ -83,9 +82,9 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
             $(window).on('character.destroyed', $.proxy(function(e, character) {
 
-                if (this.destroyedCharacterIds.indexOf(character._id) !== -1) return;
+                if (this.destroyedCharacterIds.indexOf(character.entity._id) !== -1) return;
 
-                this.destroyedCharacterIds.push(character._id);
+                this.destroyedCharacterIds.push(character.entity._id);
 
                 this.characterCount--;
                 if (this.characterCount === 0) {
@@ -136,6 +135,8 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 imageOffsetX:-.4,
                 imageOffsetY:-.7
             }));
+
+            this.characterCount = enemies.length;
 
             return enemies;
         },
