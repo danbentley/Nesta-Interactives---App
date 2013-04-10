@@ -23,11 +23,11 @@ define(['boxbox'], function() {
             this.createGround();
 
             this.createWall({
-                x: 60
+                x: 80
             });
 
             this.createWall({
-                x: -5
+                x: -25
             });
 
             this.createCharacter({
@@ -91,8 +91,9 @@ define(['boxbox'], function() {
             shape: 'square',
             type: 'static',
             color: 'rgb(231, 227, 221)',
+            borderColor: 'rgb(231, 227, 221)',
             height: 500,
-            widtr: .5
+            width: 25
         }, 
 
         characterTemplate: {
@@ -119,8 +120,9 @@ define(['boxbox'], function() {
             shape: 'square',
             type: 'static',
             color: 'rgb(231, 227, 221)',
+            borderColor: 'rgb(231, 227, 221)',
             width: 500,
-            height: .5,
+            height: 2,
             y: 12
         },
 
@@ -147,6 +149,7 @@ define(['boxbox'], function() {
                 name: 'block',
                 shape: 'square',
                 color:'rgb(205, 205, 207)',
+                borderColor:'rgb(205, 205, 207)',
                 width: .5,
                 height: 4
             };
