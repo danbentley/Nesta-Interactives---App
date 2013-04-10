@@ -1,4 +1,4 @@
-define(['src/environment'], function(environment) {
+define(['src/environment', 'src/player'], function(environment, player) {
 
     return {
 
@@ -9,10 +9,18 @@ define(['src/environment'], function(environment) {
         shotCount: 0,
         clicked: false,
         environment: null,
+        player: null,
 
         init: function() {
+
             this.environment = environment;
             this.environment.init();
+
+            this.player = player;
+            this.player.init({ 
+                world: this.environment.world
+            });
+
             this.addListeners();
             this.makeCameraFollowPlayer();
         },
@@ -36,22 +44,20 @@ define(['src/environment'], function(environment) {
                     y:e.screenY,
                 };
 
-
                 this.power = this.calculatePower();
 
                 var strength = this.getDragStrengthForPower(this.power);
                 $(window).trigger('drag.strength', [strength]);
 
                 this.angle = this.getAngle(this.offsetEnd, this.offsetStart);
-
-                this.environment.player.rotation(this.angle);
+                this.player.entity.rotation(this.angle);
 
                 this.updateStats()
             }, this));
 
             $(window).on('mouseup', $.proxy(function(e) {
                 if (!this.canMovePlayer()) return;
-                this.environment.player.applyImpulse(this.power, this.angle);
+                this.player.entity.applyImpulse(this.power, this.angle);
                 if (this.power > 0) {
                     this.shotCount++;
                     this.updateStats()
@@ -84,7 +90,7 @@ define(['src/environment'], function(environment) {
         makeCameraFollowPlayer: function() {
             // Follow make the camera follow the player .
             setInterval($.proxy(function() {
-                var position = this.environment.player.position();
+                var position = this.player.entity.position();
                 position.y = 0;
                 position.x -= 10;
                 this.environment.world.camera(position);
@@ -110,7 +116,7 @@ define(['src/environment'], function(environment) {
         },
          
         canMovePlayer: function() {
-            var velocity = this.environment.player._body.GetLinearVelocity();
+            var velocity = this.player.entity._body.GetLinearVelocity();
             return (Math.round(velocity.x) < 2 && Math.round(velocity.y) < 2);
         }
     };

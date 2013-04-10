@@ -8,8 +8,6 @@ define(['boxbox'], function() {
 
         world: null,
 
-        player: null,
-
         characterCount: 0,
 
         destroyedCharacterIds: [],
@@ -73,8 +71,6 @@ define(['boxbox'], function() {
             this.createBridgeAtPosition({ x:15, y:0 });
             this.createBridgeAtPosition({ x:30, y:0 });
             this.createBridgeAtPosition({ x:45, y:0 });
-
-            this.player = this.createPlayer();
         },
 
         addListeners: function() {
@@ -90,11 +86,6 @@ define(['boxbox'], function() {
                     $(window).trigger('game.over');
                 }
             }, this));
-
-            $(window).on('drag.strength', $.proxy(function(e, strength) {
-                if (!strength) return;
-                this.player.image('img/player-' + strength + '.png');
-            },this));
         },
 
         wallTemplate: {
@@ -105,17 +96,6 @@ define(['boxbox'], function() {
             height: 500,
             widtr: .5
         }, 
-
-        playerTemplate: {
-            name: 'player',
-            shape: 'circle',
-            image: 'img/player-weak.png',
-            imageStretchToFit: true,
-            maxVelocityX: this.MAX_POWER,
-            maxVelocityY: this.MAX_POWER,
-            density: 5,
-            x: 0
-        },
 
         characterTemplate: {
             name: 'character',
@@ -152,10 +132,6 @@ define(['boxbox'], function() {
 
         createWorld: function(options) {
             return boxbox.createWorld(this.$canvas, options);
-        },
-
-        createPlayer: function(options) {
-            return this.world.createEntity(this.playerTemplate, options);
         },
 
         createGround: function(options) {
