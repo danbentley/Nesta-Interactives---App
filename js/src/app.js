@@ -4,7 +4,6 @@ define(['src/environment', 'src/player'], function(environment, player) {
 
         offsetStart: null,
         offsetEnd: null,
-        angle: 0,
         power: 0,
         shotCount: 0,
         clicked: false,
@@ -44,27 +43,29 @@ define(['src/environment', 'src/player'], function(environment, player) {
                     y:e.screenY,
                 };
 
-                this.power = this.calculatePower();
+                var power = this.calculatePower();
+                this.player.setPower(power);
 
-                var strength = this.getDragStrengthForPower(this.power);
+                var strength = this.getDragStrengthForPower(this.player.power);
                 $(window).trigger('drag.strength', [strength]);
 
-                this.angle = this.getAngle(this.offsetEnd, this.offsetStart);
-                this.player.entity.rotation(this.angle);
+                var angle = this.player.getAngle(this.offsetEnd, this.offsetStart);
+                this.player.setAngle(angle);
 
                 this.updateStats()
             }, this));
 
             $(window).on('mouseup', $.proxy(function(e) {
                 if (!this.player.canMove()) return;
-                this.player.entity.applyImpulse(this.power, this.angle);
-                if (this.power > 0) {
+                this.player.fire();
+                this.clicked = false;
+            }, this));
+
+            $(window).on('player.fired', $.proxy(function() {
+                if (this.player.power > 0) {
                     this.shotCount++;
                     this.updateStats()
                 }
-                this.clicked = false;
-                this.power = 0;
-                this.angle = 0;
             }, this));
 
             $(window).on('game.over', function() {
@@ -72,18 +73,9 @@ define(['src/environment', 'src/player'], function(environment, player) {
             });
         },
 
-        getAngle: function(startPosition, endPosition) {
-            var angle = Math.atan2(startPosition.x - endPosition.x, startPosition.y - endPosition.y) * (180 / Math.PI);	
-
-            // To atan2 returns a range of -180 to 180 which is perfect
-            // for CSS3 rotation but not here where we'd prefer a range
-            // between 0 and 360
-            return (angle > 0) ? 360 - angle : Math.abs(angle);
-        },
-
         updateStats: function() {
-            $('#stats .angle').html(Math.round(this.angle));
-            $('#stats .power').html(this.power + '/' + this.environment.MAX_POWER);
+            $('#stats .angle').html(Math.round(this.player.angle));
+            $('#stats .power').html(this.player.power + '/' + this.environment.MAX_POWER);
             $('#stats .shot-count').html(this.shotCount);
         },
         
