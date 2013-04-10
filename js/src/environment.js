@@ -12,8 +12,6 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
         destroyedCharacterIds: [],
 
-        ready: false,
-
         wallTemplate: {
             name: 'wall',
             shape: 'square',
@@ -74,7 +72,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
         startReadyTimer: function() {
             setTimeout($.proxy(function() {
-                this.ready = true;
+                $(window).trigger('world.ready');
             }, this), 2000);
         },
 
@@ -99,7 +97,8 @@ define(['boxbox', 'src/character'], function(box, Character) {
             enemies.push(new Character({
                 world: this.world,
                 image: 'img/green-character.png',
-                x:25,
+                x:17,
+                y: -1,
                 width:2.6,
                 height:3.3,
                 imageOffsetX:-.6,
