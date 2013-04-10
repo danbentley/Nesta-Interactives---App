@@ -22,7 +22,8 @@ define(['boxbox'], function() {
             maxVelocityX: this.MAX_POWER,
             maxVelocityY: this.MAX_POWER,
             density: 5,
-            x: 0
+            x: -4,
+            y: 0
         },
 
         init: function(options) {

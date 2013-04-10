@@ -72,6 +72,8 @@ define(['boxbox', 'src/character'], function(box, Character) {
             this.createBridgeAtPosition({ x:45, y:0 });
             this.createBridgeAtPosition({ x:53, y:0 });
             this.createBridgeAtPosition({ x:47, y:-5 });
+
+            this.createPedestalAtPosition({ x: -4, y:0 });
         },
 
         startReadyTimer: function() {
@@ -157,36 +159,52 @@ define(['boxbox', 'src/character'], function(box, Character) {
             return this.world.createEntity(this.groundTemplate, options);
         },
 
+        createBlock: function(options) {
+            return this.world.createEntity(this.blockTemplate, options);
+        },
+
+        createPedestalAtPosition: function(position) {
+
+            this.createBlock({
+                x: position.x,
+                y: position.y,
+                height: 2,
+                width: 2,
+                color: 'red',
+                borderColor: 'red'
+            });
+        },
+
         createBridgeAtPosition: function(position) {
 
-            this.world.createEntity(this.blockTemplate, {
+            this.createBlock({
                 x: position.x,
                 y: position.y
             });
 
-            this.world.createEntity(this.blockTemplate, {
+            this.createBlock({
                 x: position.x + 2,
                 y: position.y
             });
 
-            this.world.createEntity(this.blockTemplate, {
+            this.createBlock({
                 x: position.x + 4,
                 y: position.y
             });
 
-            this.world.createEntity(this.blockTemplate, {
+            this.createBlock({
                 x: position.x + 6,
                 y: position.y
             });
 
-            this.world.createEntity(this.blockTemplate, {
+            this.createBlock({
                 x: position.x + 1,
                 y: position.y - 1,
                 width: 4,
                 height: .5
             });
 
-            this.world.createEntity(this.blockTemplate, {
+            this.createBlock({
                 x: position.x + 5,
                 y: position.y - 1,
                 width: 4,

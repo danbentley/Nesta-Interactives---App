@@ -9,6 +9,8 @@ define(['src/environment', 'src/player'], function(environment, player) {
         clicked: false,
         environment: null,
         player: null,
+        zoomInterval: null,
+        MAX_SCALE: 30,
 
         init: function() {
 
@@ -21,6 +23,7 @@ define(['src/environment', 'src/player'], function(environment, player) {
             });
 
             this.addListeners();
+            this.startZoom();
             this.makeCameraFollowPlayer();
         },
 
@@ -75,6 +78,17 @@ define(['src/environment', 'src/player'], function(environment, player) {
             $('#stats .angle').html(Math.round(this.player.angle));
             $('#stats .power').html(this.player.power + '/' + this.player.MAX_POWER);
             $('#stats .shot-count').html(this.shotCount);
+        },
+
+        startZoom: function() {
+            // Follow make the camera follow the player .
+            this.zoomInterval = setInterval($.proxy(function() {
+                var newScale = this.environment.world.scale() + 0.05;
+                this.environment.world.scale(newScale);
+                if (newScale > this.MAX_SCALE) {
+                    clearInterval(this.zoomInterval);
+                }
+            }, this), 1);
         },
         
         makeCameraFollowPlayer: function() {
