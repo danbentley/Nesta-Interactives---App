@@ -38,6 +38,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             shape: 'square',
             color: 'rgb(206, 206, 206)',
             borderColor: 'rgb(206, 206, 206)',
+            density: 10,
             width: .5,
             height: 4
         },
@@ -50,7 +51,8 @@ define(['boxbox', 'src/character'], function(box, Character) {
             this.world = this.createWorld({
                 //collisionOutlines:true,
                 width:1000,
-                height:500
+                height:500,
+                scale: 10
             });
 
             this.createGround();
@@ -68,6 +70,8 @@ define(['boxbox', 'src/character'], function(box, Character) {
             this.createBridgeAtPosition({ x:15, y:0 });
             this.createBridgeAtPosition({ x:30, y:0 });
             this.createBridgeAtPosition({ x:45, y:0 });
+            this.createBridgeAtPosition({ x:53, y:0 });
+            this.createBridgeAtPosition({ x:47, y:-5 });
         },
 
         startReadyTimer: function() {
@@ -97,8 +101,8 @@ define(['boxbox', 'src/character'], function(box, Character) {
             enemies.push(new Character({
                 world: this.world,
                 image: 'img/green-character.png',
-                x:17,
-                y: -1,
+                x:18,
+                y: -4,
                 width:2.6,
                 height:3.3,
                 imageOffsetX:-.6,
@@ -128,11 +132,12 @@ define(['boxbox', 'src/character'], function(box, Character) {
             enemies.push(new Character({
                 world: this.world,
                 image: 'img/yellow-character.png',
-                x:40,
-                width:1.5,
-                height:2.8,
-                imageOffsetX:-.4,
-                imageOffsetY:-.7
+                x: 33,
+                y: -4,
+                width: 1.5,
+                height: 2.8,
+                imageOffsetX: -.4,
+                imageOffsetY: -.7
             }));
 
             this.characterCount = enemies.length;
@@ -155,31 +160,35 @@ define(['boxbox', 'src/character'], function(box, Character) {
         createBridgeAtPosition: function(position) {
 
             this.world.createEntity(this.blockTemplate, {
-                x: position.x
+                x: position.x,
+                y: position.y
             });
 
             this.world.createEntity(this.blockTemplate, {
-                x: position.x + 2
+                x: position.x + 2,
+                y: position.y
             });
 
             this.world.createEntity(this.blockTemplate, {
-                x: position.x + 4
+                x: position.x + 4,
+                y: position.y
             });
 
             this.world.createEntity(this.blockTemplate, {
-                x: position.x + 6
+                x: position.x + 6,
+                y: position.y
             });
 
             this.world.createEntity(this.blockTemplate, {
                 x: position.x + 1,
-                y: 1,
+                y: position.y - 1,
                 width: 4,
                 height: .5
             });
 
             this.world.createEntity(this.blockTemplate, {
                 x: position.x + 5,
-                y: 1,
+                y: position.y - 1,
                 width: 4,
                 height: .5
             });
