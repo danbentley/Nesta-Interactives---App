@@ -52,11 +52,13 @@ define(['src/environment'], function(environment) {
             $(window).on('mouseup', $.proxy(function(e) {
                 if (!this.canMovePlayer()) return;
                 this.environment.player.applyImpulse(this.power, this.angle);
+                if (this.power > 0) {
+                    this.shotCount++;
+                    this.updateStats()
+                }
                 this.clicked = false;
                 this.power = 0;
                 this.angle = 0;
-                this.shotCount++;
-                this.updateStats()
             }, this));
 
             $(window).on('game.over', function() {
@@ -70,12 +72,7 @@ define(['src/environment'], function(environment) {
             // To atan2 returns a range of -180 to 180 which is perfect
             // for CSS3 rotation but not here where we'd prefer a range
             // between 0 and 360
-            if(angle > 0) {
-                angle = 360 - angle;		
-            } else {
-                angle = Math.abs(angle);
-            }
-            return angle;
+            return (angle > 0) ? 360 - angle : Math.abs(angle);
         },
 
         updateStats: function() {
