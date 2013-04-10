@@ -102,7 +102,6 @@ define(['src/environment', 'src/player'], function(environment, player) {
             }, this), 1);
         },
 
-
         getDragDistance: function() {
             return Math.abs(this.offsetStart.x - this.offsetEnd.x);
         }
