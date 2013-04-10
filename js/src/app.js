@@ -37,7 +37,7 @@ define(['src/environment', 'src/player'], function(environment, player) {
 
             $(window).on('mousemove', $.proxy(function(e) {
 
-                if (!this.clicked || !this.canMovePlayer()) return;
+                if (!this.clicked || !this.player.canMove()) return;
 
                 this.offsetEnd = {
                     x:e.screenX,
@@ -56,7 +56,7 @@ define(['src/environment', 'src/player'], function(environment, player) {
             }, this));
 
             $(window).on('mouseup', $.proxy(function(e) {
-                if (!this.canMovePlayer()) return;
+                if (!this.player.canMove()) return;
                 this.player.entity.applyImpulse(this.power, this.angle);
                 if (this.power > 0) {
                     this.shotCount++;
@@ -113,11 +113,6 @@ define(['src/environment', 'src/player'], function(environment, player) {
         calculatePower: function() {
             var dragDistance = Math.abs(this.offsetStart.x - this.offsetEnd.x);
             return Math.min(dragDistance, this.environment.MAX_POWER);
-        },
-         
-        canMovePlayer: function() {
-            var velocity = this.player.entity._body.GetLinearVelocity();
-            return (Math.round(velocity.x) < 2 && Math.round(velocity.y) < 2);
         }
     };
 

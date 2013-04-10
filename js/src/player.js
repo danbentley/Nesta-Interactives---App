@@ -37,6 +37,11 @@ define(['boxbox'], function() {
 
         createPlayer: function(options) {
             return this.world.createEntity(this.playerTemplate, options);
+        },
+         
+        canMove: function() {
+            var velocity = this.entity._body.GetLinearVelocity();
+            return (Math.round(velocity.x) < 2 && Math.round(velocity.y) < 2);
         }
     };
 });
