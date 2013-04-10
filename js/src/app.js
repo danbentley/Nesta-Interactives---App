@@ -92,5 +92,4 @@ define(['src/environment', 'src/player'], function(environment, player) {
             return Math.abs(this.offsetStart.x - this.offsetEnd.x);
         }
     };
-
 });

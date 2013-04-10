@@ -10,6 +10,46 @@ define(['boxbox'], function() {
 
         destroyedCharacterIds: [],
 
+        wallTemplate: {
+            name: 'wall',
+            shape: 'square',
+            type: 'static',
+            color: 'rgb(231, 227, 221)',
+            borderColor: 'rgb(231, 227, 221)',
+            height: 500,
+            width: 25
+        }, 
+
+        characterTemplate: {
+            name: 'character',
+            shape: 'square',
+            onImpact: function(entity, force) {
+                if (entity.name() === 'ground') return;
+
+                var img = this.image();
+                if (!img.match(/dead/)) {
+                    this.image(img.replace(/\.png/, '-dead.png'));
+                }
+
+                var DESTROY_DELAY = 2000;
+                setTimeout($.proxy(function() {
+                    this.destroy();
+                    $(window).trigger('character.destroyed', [this]);
+                }, this), DESTROY_DELAY);
+            }
+        },
+
+        groundTemplate: {
+            name: 'ground',
+            shape: 'square',
+            type: 'static',
+            color: 'rgb(231, 227, 221)',
+            borderColor: 'rgb(231, 227, 221)',
+            width: 500,
+            height: 2,
+            y: 12
+        },
+
         init: function() {
 
             this.addListeners();
@@ -84,46 +124,6 @@ define(['boxbox'], function() {
                     $(window).trigger('game.over');
                 }
             }, this));
-        },
-
-        wallTemplate: {
-            name: 'wall',
-            shape: 'square',
-            type: 'static',
-            color: 'rgb(231, 227, 221)',
-            borderColor: 'rgb(231, 227, 221)',
-            height: 500,
-            width: 25
-        }, 
-
-        characterTemplate: {
-            name: 'character',
-            shape: 'square',
-            onImpact: function(entity, force) {
-                if (entity.name() === 'ground') return;
-
-                var img = this.image();
-                if (!img.match(/dead/)) {
-                    this.image(img.replace(/\.png/, '-dead.png'));
-                }
-
-                var DESTROY_DELAY = 2000;
-                setTimeout($.proxy(function() {
-                    this.destroy();
-                    $(window).trigger('character.destroyed', [this]);
-                }, this), DESTROY_DELAY);
-            }
-        },
-
-        groundTemplate: {
-            name: 'ground',
-            shape: 'square',
-            type: 'static',
-            color: 'rgb(231, 227, 221)',
-            borderColor: 'rgb(231, 227, 221)',
-            width: 500,
-            height: 2,
-            y: 12
         },
 
         createWall: function(options) {

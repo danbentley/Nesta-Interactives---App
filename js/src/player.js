@@ -16,6 +16,17 @@ define(['boxbox'], function() {
 
         updateInterval: null,
 
+        playerTemplate: {
+            name: 'player',
+            shape: 'circle',
+            image: 'img/player-weak.png',
+            imageStretchToFit: true,
+            maxVelocityX: this.MAX_POWER,
+            maxVelocityY: this.MAX_POWER,
+            density: 5,
+            x: 0
+        },
+
         init: function(options) {
 
             this.startUpdateInterval();
@@ -29,17 +40,6 @@ define(['boxbox'], function() {
             this.updateInterval = setInterval($.proxy(function() {
                 this.updateImage();
             }, this), 100);
-        },
-
-        playerTemplate: {
-            name: 'player',
-            shape: 'circle',
-            image: 'img/player-weak.png',
-            imageStretchToFit: true,
-            maxVelocityX: this.MAX_POWER,
-            maxVelocityY: this.MAX_POWER,
-            density: 5,
-            x: 0
         },
 
         createPlayer: function(options) {
