@@ -51,7 +51,6 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 //collisionOutlines:true,
                 width:1000,
                 height:500,
-                scale: 10
             });
 
             this.createGround();
