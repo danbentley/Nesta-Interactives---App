@@ -57,13 +57,17 @@ define(['boxbox'], function() {
         },
 
         startMonitorInterval: function() {
-            clearInterval(this.monitorInterval);
+            this.stopMonitorInterval();
             this.monitorInterval = setInterval($.proxy(function() {
                 if (this.isStopped() && !this.allowInput) {
                     this.restart();
                     clearInterval(this.monitorInterval);
                 }
             }, this), 100);
+        },
+
+        stopMonitorInterval: function() {
+            clearInterval(this.monitorInterval);
         },
 
         createPlayer: function(options) {
@@ -139,6 +143,7 @@ define(['boxbox'], function() {
 
         restart: function() {
             setTimeout($.proxy(function() {
+                this.stopMonitorInterval();
                 this.destroy();
                 this.entity = this.createPlayer(this.options);
                 this.allowInput = true;

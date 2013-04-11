@@ -12,7 +12,7 @@ define(['src/environment', 'src/player'], function(environment, player) {
         panIntervalId: null,
         MAX_SCALE: 30,
         PAN_START_POSITION: {
-            x: 60,
+            x: 55,
             y: 0,
         },
         PAN_END_POSITION: {
@@ -20,7 +20,7 @@ define(['src/environment', 'src/player'], function(environment, player) {
             y: 0,
         },
         PAN_INTERVAL: 1,
-        PAN_SPEED: 0.2,
+        PAN_SPEED: 0.15,
         CAMERA_FOLLOW_PLAYER_INTERVAL: 1,
         cameraFollowPlayerIntervalId:null,
         CAMERA_OFFSET: {
