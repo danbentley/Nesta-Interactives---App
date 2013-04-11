@@ -18,7 +18,7 @@ define(['boxbox'], function() {
 
         options: [],
 
-        active: false,
+        allowInput: false,
 
         playerTemplate: {
             name: 'player',
@@ -37,6 +37,7 @@ define(['boxbox'], function() {
             this.options = options;
 
             this.startUpdateInterval();
+            this.allowInput = true;
 
             this.world = options.world;
             this.entity = this.createPlayer(this.options);
@@ -52,7 +53,7 @@ define(['boxbox'], function() {
         startMonitorInterval: function() {
             clearInterval(this.monitorInterval);
             this.monitorInterval = setInterval($.proxy(function() {
-                if (this.isStopped() && this.active) {
+                if (this.isStopped() && !this.allowInput) {
                     this.restart();
                     clearInterval(this.monitorInterval);
                 }
@@ -64,8 +65,7 @@ define(['boxbox'], function() {
         },
          
         canMove: function() {
-            var velocity = this.entity._body.GetLinearVelocity();
-            return (Math.round(velocity.x) < 2 && Math.round(velocity.y) < 2);
+            return (this.allowInput && this.isStopped());
         },
 
         getAngle: function(startPosition, endPosition) {
@@ -107,7 +107,7 @@ define(['boxbox'], function() {
             this.entity.applyImpulse(this.power, this.angle);
             $(window).trigger('player.fired');
             this.reset();
-            this.active = true;
+            this.allowInput = false;
             this.startMonitorInterval();
         },
 
@@ -140,7 +140,7 @@ define(['boxbox'], function() {
         },
 
         destroy: function() {
-            this.active = false;
+            this.allowInput = false;
             this.reset();
             this.entity.destroy();
         }
