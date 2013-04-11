@@ -9,8 +9,19 @@ define(['src/environment', 'src/player'], function(environment, player) {
         clicked: false,
         environment: null,
         player: null,
-        zoomInterval: null,
+        panIntervalId: null,
         MAX_SCALE: 30,
+        PAN_START_POSITION: {
+            x: 60,
+            y: 0,
+        },
+        PAN_END_POSITION: {
+            x: -10,
+            y: 0,
+        },
+        PAN_INTERVAL: 1,
+        PAN_SPEED: 0.2,
+        CAMERA_FOLLOW_PLAYER_INTERVAL: 1,
 
         init: function() {
 
@@ -23,8 +34,8 @@ define(['src/environment', 'src/player'], function(environment, player) {
             });
 
             this.addListeners();
-            this.startZoom();
-            this.makeCameraFollowPlayer();
+            this.startPan();
+            //this.makeCameraFollowPlayer();
         },
 
         addListeners: function() {
@@ -72,6 +83,10 @@ define(['src/environment', 'src/player'], function(environment, player) {
             $(window).on('game.over', function() {
                console.log('game over');
             });
+
+            $(window).on('world.ready', $.proxy(function() {
+                this.makeCameraFollowPlayer();
+            }, this));
         },
 
         updateStats: function() {
@@ -80,16 +95,17 @@ define(['src/environment', 'src/player'], function(environment, player) {
             $('#stats .shot-count').html(this.shotCount);
         },
 
-        startZoom: function() {
-            // Follow make the camera follow the player .
-            this.zoomInterval = setInterval($.proxy(function() {
-                var newScale = this.environment.world.scale() + 0.05;
-                this.environment.world.scale(newScale);
-                if (newScale > this.MAX_SCALE) {
-                    clearInterval(this.zoomInterval);
+        startPan: function() {
+            this.environment.world.camera(this.PAN_START_POSITION);
+            this.panIntervalId = setInterval($.proxy(function() {
+                var cameraPosition = this.environment.world.camera();
+                cameraPosition.x -= this.PAN_SPEED;
+                this.environment.world.camera(cameraPosition);
+                if (cameraPosition.x <= this.PAN_END_POSITION.x) {
+                    clearInterval(this.panIntervalId);
                     $(window).trigger('world.ready');
                 }
-            }, this), 1);
+            }, this), this.PAN_INTERVAL);
         },
         
         makeCameraFollowPlayer: function() {
@@ -99,7 +115,7 @@ define(['src/environment', 'src/player'], function(environment, player) {
                 position.y = 0;
                 position.x -= 10;
                 this.environment.world.camera(position);
-            }, this), 1);
+            }, this), this.CAMERA_FOLLOW_PLAYER_INTERVAL);
         },
 
         getDragDistance: function() {
