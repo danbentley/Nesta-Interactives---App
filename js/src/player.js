@@ -18,6 +18,12 @@ define(['boxbox'], function() {
 
         options: [],
 
+        /**
+         * This player may still be moving but really, really slowly. 
+         * This margin is uses to determine whether the player is as good as stopped.
+         */
+        STOP_MARGIN: 0.03,
+
         allowInput: false,
 
         playerTemplate: {
@@ -127,15 +133,15 @@ define(['boxbox'], function() {
 
         isStopped: function() {
             var velocity = this.entity._body.GetLinearVelocity();
-            var MARGIN = 0.02;
-            return ((velocity.x < MARGIN && velocity.x > MARGIN * -1) 
-                    && (velocity.y < 0.02 && velocity.y > MARGIN * -1));
+            return ((velocity.x < this.STOP_MARGIN && velocity.x > this.STOP_MARGIN * -1) 
+                    && (velocity.y < this.STOP_MARGIN && velocity.y > this.STOP_MARGIN * -1));
         },
 
         restart: function() {
             setTimeout($.proxy(function() {
                 this.destroy();
                 this.entity = this.createPlayer(this.options);
+                this.allowInput = true;
             }, this), 1000);
         },
 

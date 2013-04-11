@@ -16,12 +16,16 @@ define(['src/environment', 'src/player'], function(environment, player) {
             y: 0,
         },
         PAN_END_POSITION: {
-            x: -10,
+            x: -14,
             y: 0,
         },
         PAN_INTERVAL: 1,
         PAN_SPEED: 0.2,
         CAMERA_FOLLOW_PLAYER_INTERVAL: 1,
+        cameraFollowPlayerIntervalId:null,
+        CAMERA_OFFSET: {
+            x: -10,
+        },
 
         init: function() {
 
@@ -77,16 +81,13 @@ define(['src/environment', 'src/player'], function(environment, player) {
                 if (this.player.power > 0) {
                     this.shotCount++;
                     this.updateStats()
+                    this.makeCameraFollowPlayer();
                 }
             }, this));
 
             $(window).on('game.over', function() {
                console.log('game over');
             });
-
-            $(window).on('world.ready', $.proxy(function() {
-                this.makeCameraFollowPlayer();
-            }, this));
         },
 
         updateStats: function() {
@@ -109,11 +110,12 @@ define(['src/environment', 'src/player'], function(environment, player) {
         },
         
         makeCameraFollowPlayer: function() {
-            // Follow make the camera follow the player .
-            setInterval($.proxy(function() {
+            // Follow make the camera follow the player.
+            clearInterval(this.cameraFollowPlayerIntervalId);
+            this.cameraFollowPlayerIntervalId = setInterval($.proxy(function() {
                 var position = this.player.entity.position();
                 position.y = 0;
-                position.x -= 10;
+                position.x += this.CAMERA_OFFSET.x;
                 this.environment.world.camera(position);
             }, this), this.CAMERA_FOLLOW_PLAYER_INTERVAL);
         },
