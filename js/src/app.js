@@ -39,7 +39,6 @@ define(['src/environment', 'src/player'], function(environment, player) {
 
             this.addListeners();
             this.startPan();
-            //this.environment.world.camera({ x:-13, y:0 });
         },
 
         addListeners: function() {

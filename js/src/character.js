@@ -7,6 +7,10 @@ define(['boxbox'], function() {
             shape: 'square'
         };
 
+        // Whether this enemy is one of:
+        // ['', 'dead', 'dying']
+        this.status = '';
+
         // The minimum amount of force required to destroy
         // this enemy
         this.minForce = 5;
@@ -44,21 +48,28 @@ define(['boxbox'], function() {
     };
 
     Character.prototype.destroy = function() {
+        this.status = 'dying';
         this.updateImage();
         this.startDestroyDelay();
     };
 
     Character.prototype.updateImage = function() {
         var img = this.entity.image();
-        if (!img.match(/dead/)) {
-            this.entity.image(img.replace(/\.png/, '-dead.png'));
+        if (img.match(new RegExp('dead'))) return;
+        if (!img.match(new RegExp(this.status))) {
+            this.entity.image(img.replace(/(-dying|-dead)?.png/, '-' + this.status + '.png'));
         }
     };
 
     Character.prototype.startDestroyDelay = function() {
-        var DESTROY_DELAY = 2000;
+        var DESTROY_DELAY = 1000;
         setTimeout($.proxy(function() {
-            this.entity.destroy();
+            this.status = 'dead';
+            this.updateImage();
+            // Set delay before we remove this enemy from the map
+            setTimeout($.proxy(function() {
+                this.entity.destroy();
+            }, this), DESTROY_DELAY);
             $(window).trigger('character.destroyed', [this]);
         }, this), DESTROY_DELAY);
     };
