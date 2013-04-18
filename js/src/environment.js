@@ -62,7 +62,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             });
 
             this.createWall({
-                x: -25
+                x: -35
             });
 
 
