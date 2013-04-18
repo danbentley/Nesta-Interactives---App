@@ -29,7 +29,7 @@ define(['boxbox'], function() {
         playerTemplate: {
             name: 'player',
             shape: 'circle',
-            image: 'img/player-weak.png',
+            image: 'img/player/player-0.png',
             imageStretchToFit: true,
             maxVelocityX: this.MAX_POWER,
             maxVelocityY: this.MAX_POWER,
@@ -101,16 +101,7 @@ define(['boxbox'], function() {
         },
 
         getDragStrengthForPower: function(power) {
-            var strength = 'weak';
-            if (power > this.MAX_POWER / 3 && power < this.MAX_POWER / 2) {
-                strength = 'medium';
-            } else if (power > this.MAX_POWER / 2 && power < this.MAX_POWER) {
-                strength = 'strong';
-            } else if (power === this.MAX_POWER) {
-                strength = 'max';
-            }
-
-            return strength;
+            return Math.floor(power / 40);
         },
 
         fire: function() {
@@ -132,7 +123,7 @@ define(['boxbox'], function() {
         },
 
         updateImageWithStrength: function(strength) {
-            this.entity.image('img/player-' + strength + '.png');
+            this.entity.image('img/player/player-' + strength + '.png');
         },
 
         isStopped: function() {
