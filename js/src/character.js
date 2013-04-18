@@ -18,6 +18,7 @@ define(['boxbox'], function() {
         // An entity is inactive until the world is created.
         // Inactive enemies cannot be destroyed on impact
         this.active = false;
+        this.DESTROY_DELAY = 1000;
 
         this.world = options.world;
         options.onImpact = $.proxy(function(entity, force) {
@@ -62,16 +63,17 @@ define(['boxbox'], function() {
     };
 
     Character.prototype.startDestroyDelay = function() {
-        var DESTROY_DELAY = 1000;
         setTimeout($.proxy(function() {
+
             this.status = 'dead';
             this.updateImage();
+
             // Set delay before we remove this enemy from the map
             setTimeout($.proxy(function() {
                 this.entity.destroy();
-            }, this), DESTROY_DELAY);
-            $(window).trigger('character.destroyed', [this]);
-        }, this), DESTROY_DELAY);
+                $(window).trigger('character.destroyed', [this]);
+            }, this), this.DESTROY_DELAY);
+        }, this), this.DESTROY_DELAY);
     };
 
     return Character;
