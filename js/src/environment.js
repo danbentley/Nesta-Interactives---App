@@ -37,7 +37,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             name: 'block',
             shape: 'square',
             color: 'rgb(206, 206, 206)',
-            borderColor: 'rgb(101, 101, 101)',
+            borderColor: 'rgb(159, 159, 159)',
             density: 10,
             width: .5,
             height: 4
