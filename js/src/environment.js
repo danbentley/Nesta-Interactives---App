@@ -89,7 +89,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
 //            this.createBridgeAtPosition({ x:53, y:0 });
 //            this.createBridgeAtPosition({ x:47, y:-5 });
 
-            this.createPedestalAtPosition({ x: -10.5, y:10 });
+            this.createPedestalAtPosition({ x: -6, y:10 });
         },
 
         addListeners: function() {
@@ -275,6 +275,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             this.createBlock({
                 x: position.x,
                 y: position.y,
+                type: 'static',
                 height: 3,
                 width: 1
             });

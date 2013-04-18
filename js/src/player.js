@@ -36,7 +36,7 @@ define(['boxbox'], function() {
             imageOffsetX: -0.4,
             imageOffsetY: -0.4,
             density: 6,
-            x: -10.5,
+            x: -6,
             y: 2
         },
 
