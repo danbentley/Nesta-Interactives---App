@@ -1,39 +1,47 @@
 <!doctype html>
+
 <html>
   <head>
-      <style type="text/css" media="screen">
-        body { background: #e9e5de; }
-        #game { border:1px solid #d2cdc2; background: #f4f0ee; }
-        * { 
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-      </style>
+      <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
   </head>
   <body>
-    <canvas id="game" width=1000 height=360>
-        Your browser doesn't support canvas
-    </canvas>
-    <div id="stats">
-        Angle: <span class="angle"></span>
-        Power: <span class="power"></span>
-        Shot count: <span class="shot-count"></span>
+    <div class="interactive-wrapper">
+        <div id="app" class="app interactive">
+            <canvas id="game" width="697" height="368">
+                Your browser doesn't support canvas
+            </canvas>
+            
+            <ul id="stats">
+                <li>Angle: <span class="angle"></span></li>
+                <li>Power: <span class="power"></span></li>
+                <li>Shot count: <span class="shot-count"></span></li>
+            </ul>
+
+        </div>
+        
+        <div class="instructions">
+            <h2>Information</h2>
+            <div>
+                <p>Get the right angle and speed of the red character by clicking on him and pulling back with your mouse.</p>
+                <p>Hit the other characters to do some serious damage!</p>
+                
+                
+            </div>
+        </div>
+
     </div>
-		<script data-main="js/main.js" src="js/lib/require-jquery.js"></script>
-        <script type="text/javascript">
-            require.config({
-                shim: {
-                    'boxbox': ['box2dweb']
-                },
-                paths: {
-                    'boxbox': 'lib/boxbox/boxbox.min',
-                    'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min'
-                }
-            });
-        </script>
+
+	<script data-main="js/main.js" src="js/lib/require-jquery.js"></script>
+    <script type="text/javascript">
+        require.config({
+            shim: {
+                'boxbox': ['box2dweb']
+            },
+            paths: {
+                'boxbox': 'lib/boxbox/boxbox.min',
+                'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min'
+            }
+        });
+    </script>
   </body>
 </html>

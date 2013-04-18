@@ -33,9 +33,9 @@ define(['boxbox'], function() {
             imageStretchToFit: true,
             maxVelocityX: this.MAX_POWER,
             maxVelocityY: this.MAX_POWER,
-            density: 5,
-            x: -4,
-            y: 0
+            density: 4,
+            x: -10.5,
+            y: 2
         },
 
         init: function(options) {
