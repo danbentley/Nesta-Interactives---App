@@ -48,7 +48,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             this.addListeners();
 
             this.world = this.createWorld({
-                // collisionOutlines:true,
+                //collisionOutlines:true,
                 width:1000,
                 height:500,
             });

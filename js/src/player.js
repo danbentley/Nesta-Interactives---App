@@ -26,14 +26,16 @@ define(['boxbox'], function() {
 
         allowInput: false,
 
-        playerTemplate: {
+        template: {
             name: 'player',
             shape: 'circle',
             image: 'img/player/player-0.png',
-            imageStretchToFit: true,
             maxVelocityX: this.MAX_POWER,
             maxVelocityY: this.MAX_POWER,
-            density: 4,
+            radius: 0.8,
+            imageOffsetX: -0.4,
+            imageOffsetY: -0.4,
+            density: 6,
             x: -10.5,
             y: 2
         },
@@ -71,7 +73,7 @@ define(['boxbox'], function() {
         },
 
         createPlayer: function(options) {
-            return this.world.createEntity(this.playerTemplate, options);
+            return this.world.createEntity(this.template, options);
         },
          
         canMove: function() {
