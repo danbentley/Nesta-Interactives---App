@@ -32,9 +32,9 @@ define(['boxbox'], function() {
             image: 'img/player/player-0.png',
             maxVelocityX: this.MAX_POWER,
             maxVelocityY: this.MAX_POWER,
-            radius: 0.85,
+            radius: 0.88,
             imageOffsetX: -0.4,
-            imageOffsetY: -0.4,
+            imageOffsetY: -0.43,
             density: 6,
             x: -6,
             y: 2
