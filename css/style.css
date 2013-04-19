@@ -270,6 +270,7 @@ h3 {
 /* TEXT SPRITE PRELOADER */
 .preload-text-sprites { width:4px; height:1px; margin:0; padding:0; overflow: hidden;}
 .preload-text-sprites div { width:1px; height:1px; float:left; margin:0; padding:0; }
+
 .preload-text-sprites .blue { background: #fff url('../img/score-numbers-blue.png') no-repeat -2000px; }
 .preload-text-sprites .green { background: #fff url('../img/score-numbers-green.png') no-repeat -2000px; }
 .preload-text-sprites .orange { background: #fff url('../img/score-numbers-orange.png') no-repeat -2000px; }
