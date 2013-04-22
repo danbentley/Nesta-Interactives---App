@@ -1,4 +1,4 @@
-define(['src/environment', 'src/player'], function(environment, player) {
+define(['src/environment', 'src/player', 'src/score'], function(environment, player, score) {
 
     return {
 
@@ -28,6 +28,8 @@ define(['src/environment', 'src/player'], function(environment, player) {
         },
 
         init: function() {
+
+            score.init();
 
             this.environment = environment;
             this.environment.init();
@@ -84,9 +86,9 @@ define(['src/environment', 'src/player'], function(environment, player) {
                 }
             }, this));
 
-            $(window).on('game.over', function() {
-               console.log('game over');
-            });
+            $(window).on('characters.destroyed', $.proxy(function() {
+                $(window).trigger('game.over', [this.shotCount]);
+            }, this));
         },
 
         updateStats: function() {

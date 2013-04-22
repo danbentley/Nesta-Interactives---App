@@ -102,7 +102,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
                 this.characterCount--;
                 if (this.characterCount === 0) {
-                    $(window).trigger('game.over');
+                    $(window).trigger('characters.destroyed');
                 }
             }, this));
         },
