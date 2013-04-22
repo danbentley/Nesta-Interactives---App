@@ -38,7 +38,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             shape: 'square',
             color: 'rgb(206, 206, 206)',
             borderColor: 'rgb(159, 159, 159)',
-            density: 10,
+            density: 5,
             width: .5,
             height: 4
         },
@@ -49,7 +49,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
             this.world = this.createWorld({
                 //collisionOutlines:true,
-                scale:10,
+                //scale:10,
                 width:1000,
                 height:500,
             });
@@ -68,23 +68,25 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
             this.createPedestalAtPosition({ x: -6, y:10 });
 
-            this.createStandAtPosition( { x:1, y:10 } );
-            this.createStandAtPosition( { x:1, y:7 } );
-            
-            this.createTallStandAtPosition( { x:5, y:7 } );
-            
-            this.createStandAtPosition( { x:8, y:10 } );
+            this.createStandAtPosition({ x:3, y:10 });
+            this.createTallStandAtPosition({ x:9, y:7 });
+            this.createStandAtPosition({ x:14, y:10 });
 
-            this.createBridgeAtPosition( { x:15, y:7 } );
-            this.createBridgeAtPosition( { x:15, y:9 } );
+            this.createStandAtPosition({ x:27, y:10 });
+            this.createStandAtPosition({ x:27, y:7 });
+            this.createStandAtPosition({ x:27, y:4 });
+            this.createStandAtPosition({ x:27, y:1 });
             
-            this.createStandAtPosition( { x:31, y:10 } );
+            this.createStandAtPosition({ x:33, y:10 });
+            this.createStandAtPosition({ x:33, y:7 });
+            this.createStandAtPosition({ x:33, y:4 });
+            this.createStandAtPosition({ x:33, y:1 });
+            this.createStandAtPosition({ x:33, y:-2 });
+            this.createStandAtPosition({ x:33, y:-5 });
 
-            this.createBridgeAtPosition( { x:45, y:10 } );
-            this.createBridgeAtPosition( { x:53, y:10 } );
-            this.createBridgeAtPosition( { x:50, y:5 } );
-            //this.createBridgeAtPosition( { x:55, y:0 } );
-            //this.createBridgeAtPosition( { x:55, y:9 } );
+            this.createBridgeAtPosition({ x:45, y:10, legs:8 });
+            this.createBridgeAtPosition({ x:47, y:7, legs:6 });
+            this.createBridgeAtPosition({ x:49, y:4, legs:4 });
         },
 
         addListeners: function() {
@@ -105,12 +107,23 @@ define(['boxbox', 'src/character'], function(box, Character) {
         createCharacters: function() {
 
             var enemies = [];
+
+            enemies.push(new Character({
+                world: this.world,
+                image: 'img/new-blue-character.png',
+                x:4.5,
+                y:-4,
+                width:2,
+                height:1.7,
+                imageOffsetX:-.45,
+                imageOffsetY:-.4
+            }));
             
             enemies.push(new Character({
                 world: this.world,
                 image: 'img/new-green-character.png',
-                x: 2.5,
-                y: 1,
+                x: 10,
+                y: -1,
                 width:2.79,
                 height:3.4,
                 imageOffsetX:-.68,
@@ -119,19 +132,8 @@ define(['boxbox', 'src/character'], function(box, Character) {
             
             enemies.push(new Character({
                 world: this.world,
-                image: 'img/new-blue-character.png',
-                x:6,
-                y:1,
-                width:2,
-                height:1.7,
-                imageOffsetX:-.45,
-                imageOffsetY:-.4
-            }));
-
-            enemies.push(new Character({
-                world: this.world,
                 image: 'img/new-yellow-character.png',
-                x: 9,
+                x: 16,
                 y: 5,
                 width: 1.5,
                 height: 2.8,
@@ -142,8 +144,30 @@ define(['boxbox', 'src/character'], function(box, Character) {
             enemies.push(new Character({
                 world: this.world,
                 image: 'img/new-red-character.png',
-                x:18,
-                y:6.75,
+                x: 28,
+                y: 5,
+                width: 1.2,
+                height: 1,
+                imageOffsetX: -.25,
+                imageOffsetY: -.27
+            }));
+            
+            enemies.push(new Character({
+                world: this.world,
+                image: 'img/new-yellow-character.png',
+                x: 28,
+                y: -5,
+                width: 1.5,
+                height: 2.8,
+                imageOffsetX: -.35,
+                imageOffsetY: -.68
+            }));
+
+            enemies.push(new Character({
+                world: this.world,
+                image: 'img/new-red-character.png',
+                x:34.5,
+                y:0,
                 width:1.2,
                 height:1,
                 imageOffsetX:-.25,
@@ -152,32 +176,9 @@ define(['boxbox', 'src/character'], function(box, Character) {
             
             enemies.push(new Character({
                 world: this.world,
-                image: 'img/new-green-character.png',
-                x:26,
-                y: 10,
-                width:2.79,
-                height:3.4,
-                imageOffsetX:-.68,
-                imageOffsetY:-0.86
-            }));
-
-            
-            enemies.push(new Character({
-                world: this.world,
-                image: 'img/new-yellow-character.png',
-                x: 29,
-                y: 10,
-                width: 1.5,
-                height: 2.8,
-                imageOffsetX: -.35,
-                imageOffsetY: -.68
-            }));
-            
-            enemies.push(new Character({
-                world: this.world,
                 image: 'img/new-blue-character.png',
-                x:32.5,
-                y:6.5,
+                x:34.5,
+                y:6,
                 width:2,
                 height:1.7,
                 imageOffsetX:-.45,
@@ -187,8 +188,8 @@ define(['boxbox', 'src/character'], function(box, Character) {
             enemies.push(new Character({
                 world: this.world,
                 image: 'img/new-red-character.png',
-                x:42,
-                y:10,
+                x:48,
+                y:7,
                 width:1.2,
                 height:1,
                 imageOffsetX:-.25,
@@ -196,53 +197,27 @@ define(['boxbox', 'src/character'], function(box, Character) {
             }));
                         
             
-            
-            
-/*            
-          
             enemies.push(new Character({
                 world: this.world,
                 image: 'img/new-green-character.png',
-                x:18,
+                x:52,
                 y: 0,
-                width:2.7,
+                width:2.79,
                 height:3.4,
-                imageOffsetX:-.7,
-                imageOffsetY:-0.9
-            }));
-
-            enemies.push(new Character({
-                world: this.world,
-                image: 'img/new-red-character.png',
-                x:20,
-                width:1.15,
-                height:1,
-                imageOffsetX:-.25,
-                imageOffsetY:-.25
+                imageOffsetX:-.68,
+                imageOffsetY:-0.86
             }));
 
             enemies.push(new Character({
                 world: this.world,
                 image: 'img/new-blue-character.png',
-                x:10,
-                width:1.9,
+                x:59,
+                y:6,
+                width:2,
                 height:1.7,
                 imageOffsetX:-.45,
                 imageOffsetY:-.4
             }));
-
-            enemies.push(new Character({
-                world: this.world,
-                image: 'img/new-yellow-character.png',
-                x: 33,
-                y: -4,
-                width: 1.4,
-                height: 2.8,
-                imageOffsetX: -.35,
-                imageOffsetY: -.7
-            }));
-
-*/
 
             this.characterCount = enemies.length;
 
@@ -276,15 +251,15 @@ define(['boxbox', 'src/character'], function(box, Character) {
             });
         },
 
-        createBridgeAtPosition: function(position, legs) {
+        createBridgeAtPosition: function(options) {
 
-            var legs = 4;
+            var legs = ('legs' in options) ? options.legs : 4;
 
             for (var i=0; i < legs; i++) {
 
                 this.createBlock({
-                    x: position.x + (i * 2),
-                    y: position.y,
+                    x: options.x + (i * 2),
+                    y: options.y,
                     height: 2
                 });
             };
@@ -292,8 +267,8 @@ define(['boxbox', 'src/character'], function(box, Character) {
             var spans = legs / 2;
             for (var i=0; i < spans; i++) {
                 this.createBlock({
-                    x: position.x + 1 + (i * 4),
-                    y: position.y - 1,
+                    x: options.x + 1 + (i * 4),
+                    y: options.y - 1,
                     width: 4,
                     height: .5
                 });
@@ -301,29 +276,22 @@ define(['boxbox', 'src/character'], function(box, Character) {
         },
         
         createStandAtPosition: function(position) {
+
+            var legs = 2;
+            for (var i=0; i < legs; i++) {
+                this.createBlock({
+                    x: position.x + (i * 3),
+                    y: position.y,
+                    height: 1.7,
+                    width: 0.4
+                });
+            };
         
-            this.createBlock({
-                x: position.x,
-                y: position.y,
-                height: 1.5,
-                width:0.25,
-                density: 25
-            });
-        
-            this.createBlock({
-                x: position.x + 3,
-                y: position.y,
-                height: 1.5,
-                width: 0.25,
-                density: 25
-            });
-            
             this.createBlock({
                 x: position.x + 1.5,
                 y: position.y - 2,
                 width: 4,
-                height: .25,
-                density: 25
+                height: .25
             });
         },
         
