@@ -21,6 +21,11 @@ define(['lib/array.shuffle'], function() {
                 // Replace with call to onComplete
                 // clearInterval(this.drawIntervalId);
             }, this));
+
+            $('#play-again').on('click', $.proxy(function() {
+                this.$appContainer.removeClass('complete');
+                $(window).trigger('game.restart');
+            }, this));
         },
 
         updateFinalScore: function() {
