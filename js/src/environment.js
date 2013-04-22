@@ -18,7 +18,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             type: 'static',
             color: 'rgb(231, 227, 221)',
             borderColor: 'rgb(231, 227, 221)',
-            height: 500,
+            height: 100,
             width: 25
         }, 
 
@@ -49,6 +49,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
             this.world = this.createWorld({
                 //collisionOutlines:true,
+                scale:10,
                 width:1000,
                 height:500,
             });
@@ -65,6 +66,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 x: -35
             });
 
+            this.createPedestalAtPosition({ x: -6, y:10 });
 
             this.createStandAtPosition( { x:1, y:10 } );
             this.createStandAtPosition( { x:1, y:7 } );
@@ -76,20 +78,13 @@ define(['boxbox', 'src/character'], function(box, Character) {
             this.createBridgeAtPosition( { x:15, y:7 } );
             this.createBridgeAtPosition( { x:15, y:9 } );
             
-            
-            
-            
             this.createStandAtPosition( { x:31, y:10 } );
-            
-            
-            
-//            this.createStandAtPosition ( { x:15, y:5 } );
-//            this.createBridgeAtPosition({ x:30, y:0 });
-//            this.createBridgeAtPosition({ x:45, y:0 });
-//            this.createBridgeAtPosition({ x:53, y:0 });
-//            this.createBridgeAtPosition({ x:47, y:-5 });
 
-            this.createPedestalAtPosition({ x: -6, y:10 });
+            this.createBridgeAtPosition( { x:45, y:10 } );
+            this.createBridgeAtPosition( { x:53, y:10 } );
+            this.createBridgeAtPosition( { x:50, y:5 } );
+            //this.createBridgeAtPosition( { x:55, y:0 } );
+            //this.createBridgeAtPosition( { x:55, y:9 } );
         },
 
         addListeners: function() {
@@ -281,45 +276,28 @@ define(['boxbox', 'src/character'], function(box, Character) {
             });
         },
 
-        createBridgeAtPosition: function(position) {
+        createBridgeAtPosition: function(position, legs) {
 
-            this.createBlock({
-                x: position.x,
-                y: position.y,
-                height: 2
-            });
+            var legs = 4;
 
-            this.createBlock({
-                x: position.x + 2,
-                y: position.y,
-                height: 2
-            });
+            for (var i=0; i < legs; i++) {
 
-            this.createBlock({
-                x: position.x + 4,
-                y: position.y,
-                height: 2
-            });
+                this.createBlock({
+                    x: position.x + (i * 2),
+                    y: position.y,
+                    height: 2
+                });
+            };
 
-            this.createBlock({
-                x: position.x + 6,
-                y: position.y,
-                height: 2
-            });
-
-            this.createBlock({
-                x: position.x + 1,
-                y: position.y - 1,
-                width: 4,
-                height: .5
-            });
-
-            this.createBlock({
-                x: position.x + 5,
-                y: position.y - 1,
-                width: 4,
-                height: .5
-            });
+            var spans = legs / 2;
+            for (var i=0; i < spans; i++) {
+                this.createBlock({
+                    x: position.x + 1 + (i * 4),
+                    y: position.y - 1,
+                    width: 4,
+                    height: .5
+                });
+            };
         },
         
         createStandAtPosition: function(position) {
