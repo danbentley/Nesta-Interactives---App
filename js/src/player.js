@@ -2,7 +2,7 @@ define(['boxbox'], function() {
 
     return {
 
-        MAX_POWER: 400,
+        MAX_POWER: 500,
 
         world: null,
 
@@ -60,11 +60,16 @@ define(['boxbox'], function() {
 
         startMonitorInterval: function() {
             this.stopMonitorInterval();
+            // How many times we check whether the player is moving before
+            // we quit and remove player from field. This value acts as
+            // a timeout
+            var checks = 50;
             this.monitorInterval = setInterval($.proxy(function() {
-                if (this.isStopped() && !this.allowInput) {
+                if (this.isStopped() && !this.allowInput || checks === 0) {
                     this.restart();
                     clearInterval(this.monitorInterval);
                 }
+                checks--;
             }, this), 100);
         },
 
