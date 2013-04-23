@@ -1,0 +1,326 @@
+/* STANDARD STYLES */
+
+body {
+	background: #e9e4de;
+	padding: 0;
+	margin: 0;
+}
+
+@font-face {
+	font-family: 'MuseoSlab500';
+	src: url("../../../library/fonts/Museo_Slab_500-webfont.eot");
+	src: url("../../../library/fonts/Museo_Slab_500-webfont.eot?#iefix") format("embedded-opentype"), url("../../../library/fonts/Museo_Slab_500-webfont.woff") format("woff"), url("../../../library/fonts/Museo_Slab_500-webfont.ttf") format("truetype"), url("../../../library/fonts/Museo_Slab_500-webfont.svg#MuseoSlab500Regular") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'MuseoSlab500';
+	src: url("../../../library/fonts/Museo_Slab_500italic-webfont.eot");
+	src: url("../../../library/fonts/Museo_Slab_500italic-webfont.eot?#iefix") format("embedded-opentype"), url("../../../library/fonts/Museo_Slab_500italic-webfont.woff") format("woff"), url("../../../library/fonts/Museo_Slab_500italic-webfont.ttf") format("truetype"), url("../../../library/fonts/Museo_Slab_500italic-webfont.svg#MuseoSlab500Italic") format("svg");
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'MuseoSlab500';
+	src: url("../../../library/fonts/Museo_Slab_500-webfont.eot");
+	src: url("../../../library/fonts/Museo_Slab_500-webfont.eot?#iefix") format("embedded-opentype"), url("../../../library/fonts/Museo_Slab_500-webfont.woff") format("woff"), url("../../../library/fonts/Museo_Slab_500-webfont.ttf") format("truetype"), url("../../../library/fonts/Museo_Slab_500-webfont.svg#MuseoSlab500Regular") format("svg");
+	font-weight: bold;
+	font-style: normal;
+}
+
+
+.interactive-wrapper {
+	width: 963px;
+	overflow: hidden;
+	background: #fff;
+	border-radius: 3px;
+	border: 1px #d1cdc2 solid;
+}
+
+
+.instructions {
+	color: #656565;
+	float: right;
+	width: 265px;
+}
+
+.instructions h2 {
+	padding: 20px 20px 15px;
+	margin: 0 0 0.8em;
+	border-bottom: 1px #d1cdc2 solid;
+	font: normal 1em 'MuseoSlab500', Helvetica, Sans-serif;
+}
+
+h3 {
+/*	padding: 20px 20px 15px;
+	margin: 0 0 0.8em; */
+	font: normal 1.625em 'MuseoSlab500', Helvetica, Sans-serif
+}
+
+.instructions div {
+	padding: 0 20px;
+}
+
+.instructions p {
+	font: normal 0.95em/1.5 'MuseoSlab500', Helvetica, Sans-serif;
+	margin: 0 0 1.5em;
+}
+
+#game {
+	background: #f6f4f1 url("../img/stage-bg.png") no-repeat 0 -50px;
+}
+
+* { 
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+
+
+/* CONTROL BUTTONS */
+.buttons {
+	list-style: none;
+	margin:0 0 1.5em;
+	padding:0;
+	font-family: 'MuseoSlab500', Helvetica, Sans-serif;
+}
+
+.buttons a {
+	border: 1px #ece8e3 solid;
+	display: block;
+	margin-top:10px;
+	padding-left:49px;
+	color: #666;
+	text-decoration:none;
+	border-radius:3px;
+}
+.buttons a span {
+	display: block;
+	background: #fff;
+	padding:15px 10px;
+	width: auto;
+	height: auto;
+	float: none;
+		
+	-moz-transition: all .2s ease-in-out;
+	-webkit-transition: width .2s ease-in-out;
+	-o-transition: width .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+.buttons a:hover span {
+	background:#f4f0ed;
+}
+.buttons a.play {
+	background: #6ac071 url('../images/controls.png') no-repeat 15px 50%;
+}
+.buttons a.pause {
+	background: #57cbf5 url('../images/controls.png') no-repeat 15px 0;
+}
+
+.buttons a.disabled {
+	opacity: 0.5;
+	cursor: default;
+	background-color: #ece8e3;
+	color: #d1cdc2;
+}
+.buttons a.disabled:hover span {
+	background-color: #fff;
+}
+
+
+
+/* INTERACTIVE-SPECIFIC STYLES */
+
+.interactive {
+	background: #f4f0ed;
+	padding: 0;
+	list-style: none;
+	width: 697px;
+	height: 368px;
+	float: left;
+	border-right: 1px #d1cdc2 solid;
+	position: relative;
+}
+
+
+
+/* SCORE & STATS */
+#stats {
+	list-style: none;
+	padding: 5px 0;
+	margin: 0;
+	position: absolute;
+	background-color: rgba(255,255,255,0.5);
+	top: 10px;
+	left: 10px;
+	z-index: 10;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#stats li {
+	font: normal 0.7em/1 'MuseoSlab500', Helvetica, Sans-serif;
+	text-transform: uppercase;
+	display: block;
+	
+	padding: 3px 10px 2px;
+	color: #656565;
+}
+
+#stats span {
+	color: #f2665e;
+}
+
+
+/* END SCREEN */
+.complete .end-screen {
+	display:block;
+}
+
+.end-screen {
+	display:none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #f4f0ed;
+	background: rgba(244,240,237,0.95);
+}
+
+.end-screen h3 {
+	text-align: center;
+	color: #656565;
+	margin-top: 49px;
+	margin-bottom: 21px;
+}
+
+
+.button {
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	background: #fff;
+	color: #f2675e;
+	font: normal 0.95em/1.5 'MuseoSlab500', Helvetica, Sans-serif;
+	border: 1px #d2ccc3 solid;
+	width: 180px;
+	padding: 15px 0;
+	margin: 0 auto;
+	-moz-transition: all .2s ease-in-out;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+	
+	border-radius: 3px;
+}
+
+.button:hover {
+	background: #faf6f2;
+}
+
+.button:active {
+	background: #f4f0ed;
+}
+
+.final-score {
+	display: block;
+	text-align: center;
+	margin: 0 0 20px;
+	height:110px;	
+}
+
+.final-score .number {
+	height:110px;
+	width: 64px;
+	display: inline-block;
+	text-align: center;
+	overflow: hidden;
+	margin: 0 5px;
+	text-indent: -900em;
+}
+
+.final-score .no-0 { background-position:  -50px -50px; width:64px; }
+.final-score .no-1 { background-position: -150px -50px; width:49px; }
+.final-score .no-2 { background-position: -250px -50px; width:64px; }
+.final-score .no-3 { background-position: -350px -50px; width:64px; }
+.final-score .no-4 { background-position: -450px -50px; width:78px; }
+.final-score .no-5 { background-position: -550px -50px; width:64px; }
+.final-score .no-6 { background-position: -650px -50px; width:64px; }
+.final-score .no-7 { background-position: -750px -50px; width:60px; }
+.final-score .no-8 { background-position: -850px -50px; width:65px; }
+.final-score .no-9 { background-position: -950px -50px; width:63px; }
+
+.final-score .green { background-image: url('../img/score-numbers-green.png'); }
+.final-score .blue { background-image: url('../img/score-numbers-blue.png'); }
+.final-score .orange { background-image: url('../img/score-numbers-orange.png'); }
+.final-score .red { background-image: url('../img/score-numbers-red.png'); }
+
+
+/* TEXT SPRITE PRELOADER */
+.preload-text-sprites { width:4px; height:1px; margin:0; padding:0; overflow: hidden;}
+.preload-text-sprites div { width:1px; height:1px; float:left; margin:0; padding:0; }
+
+.preload-text-sprites .blue { background: #fff url('../img/score-numbers-blue.png') no-repeat -2000px; }
+.preload-text-sprites .green { background: #fff url('../img/score-numbers-green.png') no-repeat -2000px; }
+.preload-text-sprites .orange { background: #fff url('../img/score-numbers-orange.png') no-repeat -2000px; }
+.preload-text-sprites .red { background: #fff url('../img/score-numbers-red.png') no-repeat -2000px; }
+
+
+
+/* MESSAGE */
+.message-overlay {
+	background:#f4f0ed url('../img/game-disabled-bg.png') no-repeat 0 0;
+	width:100%;
+	height:100%;
+	z-index: 10;
+	position: absolute;
+	opacity: 0.65;
+	display: block;
+}
+.message {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 20;
+	background: #fff;
+	border: 1px #d1cdc2 solid;
+	box-shadow: 0 0 5px #d1cdc2;
+	color: #656565;
+	margin: -60px 0 0 -207px;
+	height: 80px;
+	width: 400px;
+	padding: 30px 10px 20px;
+	text-align: center;
+	display: block;
+}
+
+.message h3 {
+	margin: 0 0 0.5em;
+	font: normal 1.625em 'MuseoSlab500', Helvetica, Sans-serif
+}
+
+.message p {
+	margin: 0 0 0.5em;
+	font: normal 0.95em/1.5 'MuseoSlab500', Helvetica, Sans-serif;
+}
+
+.message p strong {
+	color: #f2675e;
+	font-weight: normal;
+}
+
+.complete .message {
+	display: block;
+}
+

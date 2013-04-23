@@ -2,7 +2,7 @@ define(['boxbox'], function() {
 
     return {
 
-        MAX_POWER: 400,
+        MAX_POWER: 500,
 
         world: null,
 
@@ -26,16 +26,18 @@ define(['boxbox'], function() {
 
         allowInput: false,
 
-        playerTemplate: {
+        template: {
             name: 'player',
             shape: 'circle',
-            image: 'img/player-weak.png',
-            imageStretchToFit: true,
+            image: 'img/player/player-0.png',
             maxVelocityX: this.MAX_POWER,
             maxVelocityY: this.MAX_POWER,
-            density: 5,
-            x: -4,
-            y: 0
+            radius: 0.88,
+            imageOffsetX: -0.4,
+            imageOffsetY: -0.43,
+            density: 6,
+            x: -6,
+            y: 2
         },
 
         init: function(options) {
@@ -58,11 +60,16 @@ define(['boxbox'], function() {
 
         startMonitorInterval: function() {
             this.stopMonitorInterval();
+            // How many times we check whether the player is moving before
+            // we quit and remove player from field. This value acts as
+            // a timeout
+            var checks = 50;
             this.monitorInterval = setInterval($.proxy(function() {
-                if (this.isStopped() && !this.allowInput) {
+                if (this.isStopped() && !this.allowInput || checks === 0) {
                     this.restart();
                     clearInterval(this.monitorInterval);
                 }
+                checks--;
             }, this), 100);
         },
 
@@ -71,7 +78,7 @@ define(['boxbox'], function() {
         },
 
         createPlayer: function(options) {
-            return this.world.createEntity(this.playerTemplate, options);
+            return this.world.createEntity(this.template, options);
         },
          
         canMove: function() {
@@ -101,16 +108,7 @@ define(['boxbox'], function() {
         },
 
         getDragStrengthForPower: function(power) {
-            var strength = 'weak';
-            if (power > this.MAX_POWER / 3 && power < this.MAX_POWER / 2) {
-                strength = 'medium';
-            } else if (power > this.MAX_POWER / 2 && power < this.MAX_POWER) {
-                strength = 'strong';
-            } else if (power === this.MAX_POWER) {
-                strength = 'max';
-            }
-
-            return strength;
+            return Math.floor(power / 50);
         },
 
         fire: function() {
@@ -132,7 +130,7 @@ define(['boxbox'], function() {
         },
 
         updateImageWithStrength: function(strength) {
-            this.entity.image('img/player-' + strength + '.png');
+            this.entity.image('img/player/player-' + strength + '.png');
         },
 
         isStopped: function() {

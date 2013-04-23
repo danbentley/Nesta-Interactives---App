@@ -1,4 +1,4 @@
-define(['boxbox', 'src/character'], function(box, Character) {
+define(['boxbox', 'src/enemy-factory'], function(box, EnemyFactory) {
 
     return {
 
@@ -10,7 +10,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
         enemies: [],
 
-        destroyedCharacterIds: [],
+        destroyedEnemyIds: [],
 
         wallTemplate: {
             name: 'wall',
@@ -18,7 +18,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             type: 'static',
             color: 'rgb(231, 227, 221)',
             borderColor: 'rgb(231, 227, 221)',
-            height: 500,
+            height: 100,
             width: 25
         }, 
 
@@ -26,10 +26,10 @@ define(['boxbox', 'src/character'], function(box, Character) {
             name: 'ground',
             shape: 'square',
             type: 'static',
-            color: 'rgb(101, 101, 101)',
+            color: 'rgb(101, 102, 101)',
             borderColor: 'rgb(101, 101, 101)',
             width: 500,
-            height: 2,
+            height: 1.25,
             y: 12
         },
 
@@ -37,8 +37,8 @@ define(['boxbox', 'src/character'], function(box, Character) {
             name: 'block',
             shape: 'square',
             color: 'rgb(206, 206, 206)',
-            borderColor: 'rgb(206, 206, 206)',
-            density: 10,
+            borderColor: 'rgb(159, 159, 159)',
+            density: 5,
             width: .5,
             height: 4
         },
@@ -49,89 +49,134 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
             this.world = this.createWorld({
                 //collisionOutlines:true,
+                //scale:10,
                 width:1000,
                 height:500,
             });
 
             this.createGround();
 
-            this.characters = this.createCharacters();
+            this.characters = this.createEnemies();
 
             this.createWall({
-                x: 80
+                x: 120
             });
 
             this.createWall({
-                x: -25
+                x: -35
             });
 
-            this.createBridgeAtPosition({ x:15, y:0 });
-            this.createBridgeAtPosition({ x:30, y:0 });
-            this.createBridgeAtPosition({ x:45, y:0 });
-            this.createBridgeAtPosition({ x:53, y:0 });
-            this.createBridgeAtPosition({ x:47, y:-5 });
+            this.createPedestal({ x: -6, y:10 });
 
-            this.createPedestalAtPosition({ x: -4, y:0 });
+            this.createStand({ x:3, y:10 });
+            this.createTallStand({ x:9, y:7 });
+            this.createStand({ x:14, y:10 });
+
+            this.createStand({ x:27, y:10 });
+            this.createStand({ x:27, y:7 });
+            this.createStand({ x:27, y:4 });
+            this.createStand({ x:27, y:1 });
+            
+            this.createStand({ x:33, y:10 });
+            this.createStand({ x:33, y:7 });
+            this.createStand({ x:33, y:4 });
+            this.createStand({ x:33, y:1 });
+            this.createStand({ x:33, y:-2 });
+            this.createStand({ x:33, y:-5 });
+
+            this.createBridge({ x:45, y:10, legs: { count:7 }});
+            this.createBridge({ x:47, y:7, legs: { count:6 }});
+            this.createBridge({ x:49, y:4, legs: { count:4 }});
         },
 
         addListeners: function() {
 
             $(window).on('character.destroyed', $.proxy(function(e, character) {
 
-                if (this.destroyedCharacterIds.indexOf(character.entity._id) !== -1) return;
+                if (this.destroyedEnemyIds.indexOf(character.entity._id) !== -1) return;
 
-                this.destroyedCharacterIds.push(character.entity._id);
+                this.destroyedEnemyIds.push(character.entity._id);
 
                 this.characterCount--;
                 if (this.characterCount === 0) {
-                    $(window).trigger('game.over');
+                    $(window).trigger('characters.destroyed');
                 }
             }, this));
         },
 
-        createCharacters: function() {
+        createEnemies: function() {
 
             var enemies = [];
-            enemies.push(new Character({
+
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/green-character.png',
-                x:18,
-                y: -4,
-                width:2.6,
-                height:3.3,
-                imageOffsetX:-.6,
-                imageOffsetY:-1.1
+                enemyType: 'blue',
+                x:4.5,
+                y:-4,
+            }));
+            
+            enemies.push(new EnemyFactory({
+                world: this.world,
+                enemyType: 'green',
+                x: 10,
+                y: -1,
+            }));
+            
+            enemies.push(new EnemyFactory({
+                world: this.world,
+                enemyType: 'yellow',
+                x: 16,
+                y: 5,
             }));
 
-            enemies.push(new Character({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/red-character.png',
-                x:20,
-                width:1,
-                height:1,
-                imageOffsetX:-.25,
-                imageOffsetY:-.25
+                enemyType: 'red',
+                x: 28,
+                y: 5,
+            }));
+            
+            enemies.push(new EnemyFactory({
+                world: this.world,
+                enemyType: 'yellow',
+                x: 28,
+                y: -5,
             }));
 
-            enemies.push(new Character({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/blue-character.png',
-                x:10,
-                width:1.5,
-                height:1.2,
-                imageOffsetX:-.4,
-                imageOffsetY:-.3
+                enemyType: 'red',
+                x:34.5,
+                y:0,
+            }));
+            
+            enemies.push(new EnemyFactory({
+                world: this.world,
+                enemyType: 'blue',
+                x:34.5,
+                y:6,
+            }));
+            
+            enemies.push(new EnemyFactory({
+                world: this.world,
+                enemyType: 'red',
+                x:48,
+                y:7,
+            }));
+                        
+            
+            enemies.push(new EnemyFactory({
+                world: this.world,
+                enemyType: 'green',
+                x:52,
+                y: 0,
             }));
 
-            enemies.push(new Character({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/yellow-character.png',
-                x: 33,
-                y: -4,
-                width: 1.5,
-                height: 2.8,
-                imageOffsetX: -.4,
-                imageOffsetY: -.7
+                enemyType: 'blue',
+                x:58,
+                y:6,
             }));
 
             this.characterCount = enemies.length;
@@ -155,51 +200,80 @@ define(['boxbox', 'src/character'], function(box, Character) {
             return this.world.createEntity(this.blockTemplate, options);
         },
 
-        createPedestalAtPosition: function(position) {
+        createPedestal: function(options) {
 
-            this.createBlock({
-                x: position.x,
-                y: position.y,
-                height: 2,
-                width: 2
-            });
+            var options = options || {};
+            options.type = 'static';
+            options.height = 3;
+            options.width = 1;
+
+            this.createBlock(options);
         },
 
-        createBridgeAtPosition: function(position) {
+        createBridge: function(options) {
 
-            this.createBlock({
-                x: position.x,
-                y: position.y
-            });
+            var defaults = {
+                legs: {
+                    height: 2,
+                    count: 4,
+                    // The gap between the legs. Surely there's a better
+                    // variable name for this.
+                    widthFactor: 3
+                },
+                span: {
+                    width: 3,
+                    height: .5
+                }
+            };
 
-            this.createBlock({
-                x: position.x + 2,
-                y: position.y
-            });
+            var legOptions = $.extend(true, {}, defaults.legs, options.legs);
+            var spanOptions = $.extend(true, {}, defaults.span, options.span);
 
-            this.createBlock({
-                x: position.x + 4,
-                y: position.y
-            });
+            for (var i=0; i < legOptions.count; i++) {
+                var opts = $.extend(true, {}, options, legOptions);
+                opts.x = opts.x + (i * legOptions.widthFactor);
 
-            this.createBlock({
-                x: position.x + 6,
-                y: position.y
-            });
+                this.createBlock(opts);
+            };
 
-            this.createBlock({
-                x: position.x + 1,
-                y: position.y - 1,
+            var spans = legOptions.count - 1;
+            for (var i=1; i <= spans; i++) {
+                var opts = $.extend({}, options, spanOptions);
+                opts.x = opts.x + (i * legOptions.widthFactor - (legOptions.widthFactor / 2));
+                opts.y = opts.y - 2;
+
+                this.createBlock(opts);
+            };
+        },
+        
+        createStand: function(options) {
+            options.legs = { 
+                count: 2,
+                width: .4,
+                height: 1.7,
+                widthFactor: 3
+            };
+            options.span = { 
                 width: 4,
-                height: .5
-            });
+                height: .25
+            };
+            return this.createBridge(options);
+        },
 
-            this.createBlock({
-                x: position.x + 5,
-                y: position.y - 1,
+        createTallStand: function(options) {
+            options.legs = { 
+                count: 2,
+                width: .25,
+                height: 6,
+                density: 25,
+                widthFactor: 2.5
+            };
+            options.span = { 
                 width: 4,
-                height: .5
-            });
+                height: .25,
+                y: 5
+            };
+            return this.createBridge(options);
         }
     };
 });
