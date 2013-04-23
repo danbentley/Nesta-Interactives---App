@@ -59,7 +59,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             this.characters = this.createCharacters();
 
             this.createWall({
-                x: 80
+                x: 120
             });
 
             this.createWall({
@@ -84,9 +84,9 @@ define(['boxbox', 'src/character'], function(box, Character) {
             this.createStandAtPosition({ x:33, y:-2 });
             this.createStandAtPosition({ x:33, y:-5 });
 
-            this.createBridgeAtPosition({ x:45, y:10, legs:8 });
-            this.createBridgeAtPosition({ x:47, y:7, legs:6 });
-            this.createBridgeAtPosition({ x:49, y:4, legs:4 });
+            this.createBridgeAtPosition({ x:45, y:10, legs: { count:7 }});
+            this.createBridgeAtPosition({ x:47, y:7, legs: { count:6 }});
+            this.createBridgeAtPosition({ x:49, y:4, legs: { count:4 }});
         },
 
         addListeners: function() {
@@ -105,6 +105,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
         },
 
         createCharacters: function() {
+            return;
 
             var enemies = [];
 
@@ -240,61 +241,66 @@ define(['boxbox', 'src/character'], function(box, Character) {
             return this.world.createEntity(this.blockTemplate, options);
         },
 
-        createPedestalAtPosition: function(position) {
+        createPedestalAtPosition: function(options) {
 
-            this.createBlock({
-                x: position.x,
-                y: position.y,
-                type: 'static',
-                height: 3,
-                width: 1
-            });
+            var options = options || {};
+            options.type = 'static';
+            options.height = 3;
+            options.width = 1;
+
+            this.createBlock(options);
         },
 
         createBridgeAtPosition: function(options) {
 
-            var legs = ('legs' in options) ? options.legs : 4;
-
-            for (var i=0; i < legs; i++) {
-
-                this.createBlock({
-                    x: options.x + (i * 2),
-                    y: options.y,
-                    height: 2
-                });
+            var defaults = {
+                legs: {
+                    height: 2,
+                    count: 4,
+                    // The gap between the legs. Surely there's a better
+                    // variable name for this.
+                    widthFactor: 3
+                },
+                span: {
+                    width: 3,
+                    height: .5
+                }
             };
 
-            var spans = legs / 2;
-            for (var i=0; i < spans; i++) {
-                this.createBlock({
-                    x: options.x + 1 + (i * 4),
-                    y: options.y - 1,
-                    width: 4,
-                    height: .5
-                });
+            var legOptions = $.extend(true, {}, defaults.legs, options.legs);
+            var spanOptions = $.extend(true, {}, defaults.span, options.span);
+
+            for (var i=0; i < legOptions.count; i++) {
+                var opts = $.extend(true, {}, options, legOptions);
+                opts.x = options.x + (i * legOptions.widthFactor);
+
+                this.createBlock(opts);
+            };
+
+            var spans = legOptions.count - 1;
+            for (var i=1; i <= spans; i++) {
+                var opts = $.extend({}, options, spanOptions);
+                opts.x = options.x + (i * legOptions.widthFactor - (legOptions.widthFactor / 2));
+                opts.y = options.y - 2;
+
+                this.createBlock(opts);
             };
         },
         
-        createStandAtPosition: function(position) {
-
-            var legs = 2;
-            for (var i=0; i < legs; i++) {
-                this.createBlock({
-                    x: position.x + (i * 3),
-                    y: position.y,
-                    height: 1.7,
-                    width: 0.4
-                });
+        createStandAtPosition: function(options) {
+            options.legs = { 
+                count: 2,
+                width: .4,
+                height: 1.7,
+                widthFactor: 3
             };
-        
-            this.createBlock({
-                x: position.x + 1.5,
-                y: position.y - 2,
+            options.span = { 
                 width: 4,
                 height: .25
-            });
+            };
+            return this.createBridgeAtPosition(options);
         },
-        
+
         createTallStandAtPosition: function(position) {
         
             this.createBlock({
