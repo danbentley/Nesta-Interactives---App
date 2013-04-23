@@ -66,27 +66,27 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 x: -35
             });
 
-            this.createPedestalAtPosition({ x: -6, y:10 });
+            this.createPedestal({ x: -6, y:10 });
 
-            this.createStandAtPosition({ x:3, y:10 });
-            this.createTallStandAtPosition({ x:9, y:7 });
-            this.createStandAtPosition({ x:14, y:10 });
+            this.createStand({ x:3, y:10 });
+            this.createTallStand({ x:9, y:7 });
+            this.createStand({ x:14, y:10 });
 
-            this.createStandAtPosition({ x:27, y:10 });
-            this.createStandAtPosition({ x:27, y:7 });
-            this.createStandAtPosition({ x:27, y:4 });
-            this.createStandAtPosition({ x:27, y:1 });
+            this.createStand({ x:27, y:10 });
+            this.createStand({ x:27, y:7 });
+            this.createStand({ x:27, y:4 });
+            this.createStand({ x:27, y:1 });
             
-            this.createStandAtPosition({ x:33, y:10 });
-            this.createStandAtPosition({ x:33, y:7 });
-            this.createStandAtPosition({ x:33, y:4 });
-            this.createStandAtPosition({ x:33, y:1 });
-            this.createStandAtPosition({ x:33, y:-2 });
-            this.createStandAtPosition({ x:33, y:-5 });
+            this.createStand({ x:33, y:10 });
+            this.createStand({ x:33, y:7 });
+            this.createStand({ x:33, y:4 });
+            this.createStand({ x:33, y:1 });
+            this.createStand({ x:33, y:-2 });
+            this.createStand({ x:33, y:-5 });
 
-            this.createBridgeAtPosition({ x:45, y:10, legs: { count:7 }});
-            this.createBridgeAtPosition({ x:47, y:7, legs: { count:6 }});
-            this.createBridgeAtPosition({ x:49, y:4, legs: { count:4 }});
+            this.createBridge({ x:45, y:10, legs: { count:7 }});
+            this.createBridge({ x:47, y:7, legs: { count:6 }});
+            this.createBridge({ x:49, y:4, legs: { count:4 }});
         },
 
         addListeners: function() {
@@ -241,7 +241,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             return this.world.createEntity(this.blockTemplate, options);
         },
 
-        createPedestalAtPosition: function(options) {
+        createPedestal: function(options) {
 
             var options = options || {};
             options.type = 'static';
@@ -251,7 +251,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             this.createBlock(options);
         },
 
-        createBridgeAtPosition: function(options) {
+        createBridge: function(options) {
 
             var defaults = {
                 legs: {
@@ -287,7 +287,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             };
         },
         
-        createStandAtPosition: function(options) {
+        createStand: function(options) {
             options.legs = { 
                 count: 2,
                 width: .4,
@@ -298,10 +298,10 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 width: 4,
                 height: .25
             };
-            return this.createBridgeAtPosition(options);
+            return this.createBridge(options);
         },
 
-        createTallStandAtPosition: function(position) {
+        createTallStand: function(position) {
         
             this.createBlock({
                 x: position.x,
