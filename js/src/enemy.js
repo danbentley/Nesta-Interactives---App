@@ -1,9 +1,9 @@
 define(['boxbox'], function() {
 
-    function Character(options) {
+    function Enemy(options) {
 
-        this.characterTemplate = {
-            name: 'character',
+        this.template = {
+            name: 'enemy',
             shape: 'square'
         };
 
@@ -24,37 +24,37 @@ define(['boxbox'], function() {
         options.onImpact = $.proxy(function(entity, force) {
             this.onImpact(entity, force)
         }, this);
-        this.entity = this.createCharacter(options);
+        this.entity = this.create(options);
 
         this.addListeners();
     }
 
-    Character.prototype.addListeners = function(options) {
+    Enemy.prototype.addListeners = function(options) {
         $(window).on('world.ready', $.proxy(function() {
             this.active = true;
         }, this));
     }; 
 
-    Character.prototype.createCharacter = function(options) {
-        return this.world.createEntity(this.characterTemplate, options);
+    Enemy.prototype.create = function(options) {
+        return this.world.createEntity(this.template, options);
     }; 
 
-    Character.prototype.onImpact = function(entity, force) {
+    Enemy.prototype.onImpact = function(entity, force) {
         if (!this.active || !this.isForceStrongEnough(force)) return;
         this.destroy();
     };
 
-    Character.prototype.isForceStrongEnough = function(force) {
+    Enemy.prototype.isForceStrongEnough = function(force) {
         return (force > this.minForce);
     };
 
-    Character.prototype.destroy = function() {
+    Enemy.prototype.destroy = function() {
         this.status = 'dying';
         this.updateImage();
         this.startDestroyDelay();
     };
 
-    Character.prototype.updateImage = function() {
+    Enemy.prototype.updateImage = function() {
         var img = this.entity.image();
         if (img.match(new RegExp('dead'))) return;
         if (!img.match(new RegExp(this.status))) {
@@ -62,7 +62,7 @@ define(['boxbox'], function() {
         }
     };
 
-    Character.prototype.startDestroyDelay = function() {
+    Enemy.prototype.startDestroyDelay = function() {
         setTimeout($.proxy(function() {
 
             this.status = 'dead';
@@ -76,5 +76,5 @@ define(['boxbox'], function() {
         }, this), this.DESTROY_DELAY);
     };
 
-    return Character;
+    return Enemy;
 });

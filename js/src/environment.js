@@ -1,4 +1,4 @@
-define(['boxbox', 'src/character'], function(box, Character) {
+define(['boxbox', 'src/enemy'], function(box, Enemy) {
 
     return {
 
@@ -10,7 +10,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
         enemies: [],
 
-        destroyedCharacterIds: [],
+        destroyedEnemyIds: [],
 
         wallTemplate: {
             name: 'wall',
@@ -56,7 +56,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
             this.createGround();
 
-            this.characters = this.createCharacters();
+            this.characters = this.createEnemies();
 
             this.createWall({
                 x: 120
@@ -93,9 +93,9 @@ define(['boxbox', 'src/character'], function(box, Character) {
 
             $(window).on('character.destroyed', $.proxy(function(e, character) {
 
-                if (this.destroyedCharacterIds.indexOf(character.entity._id) !== -1) return;
+                if (this.destroyedEnemyIds.indexOf(character.entity._id) !== -1) return;
 
-                this.destroyedCharacterIds.push(character.entity._id);
+                this.destroyedEnemyIds.push(character.entity._id);
 
                 this.characterCount--;
                 if (this.characterCount === 0) {
@@ -104,11 +104,11 @@ define(['boxbox', 'src/character'], function(box, Character) {
             }, this));
         },
 
-        createCharacters: function() {
+        createEnemies: function() {
 
             var enemies = [];
 
-            enemies.push(new Character({
+            enemies.push(new Enemy({
                 world: this.world,
                 image: 'img/new-blue-character.png',
                 x:4.5,
@@ -119,7 +119,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 imageOffsetY:-.4
             }));
             
-            enemies.push(new Character({
+            enemies.push(new Enemy({
                 world: this.world,
                 image: 'img/new-green-character.png',
                 x: 10,
@@ -130,7 +130,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 imageOffsetY:-0.86
             }));
             
-            enemies.push(new Character({
+            enemies.push(new Enemy({
                 world: this.world,
                 image: 'img/new-yellow-character.png',
                 x: 16,
@@ -141,7 +141,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 imageOffsetY: -.68
             }));
 
-            enemies.push(new Character({
+            enemies.push(new Enemy({
                 world: this.world,
                 image: 'img/new-red-character.png',
                 x: 28,
@@ -152,7 +152,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 imageOffsetY: -.27
             }));
             
-            enemies.push(new Character({
+            enemies.push(new Enemy({
                 world: this.world,
                 image: 'img/new-yellow-character.png',
                 x: 28,
@@ -163,7 +163,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 imageOffsetY: -.68
             }));
 
-            enemies.push(new Character({
+            enemies.push(new Enemy({
                 world: this.world,
                 image: 'img/new-red-character.png',
                 x:34.5,
@@ -174,7 +174,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 imageOffsetY:-.27
             }));
             
-            enemies.push(new Character({
+            enemies.push(new Enemy({
                 world: this.world,
                 image: 'img/new-blue-character.png',
                 x:34.5,
@@ -185,7 +185,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 imageOffsetY:-.4
             }));
             
-            enemies.push(new Character({
+            enemies.push(new Enemy({
                 world: this.world,
                 image: 'img/new-red-character.png',
                 x:48,
@@ -197,7 +197,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             }));
                         
             
-            enemies.push(new Character({
+            enemies.push(new Enemy({
                 world: this.world,
                 image: 'img/new-green-character.png',
                 x:52,
@@ -208,7 +208,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
                 imageOffsetY:-0.86
             }));
 
-            enemies.push(new Character({
+            enemies.push(new Enemy({
                 world: this.world,
                 image: 'img/new-blue-character.png',
                 x:58,
