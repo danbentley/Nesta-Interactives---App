@@ -108,7 +108,7 @@ define(['boxbox'], function() {
         },
 
         getDragStrengthForPower: function(power) {
-            return Math.floor(power / 40);
+            return Math.floor(power / 50);
         },
 
         fire: function() {
