@@ -105,7 +105,6 @@ define(['boxbox', 'src/character'], function(box, Character) {
         },
 
         createCharacters: function() {
-            return;
 
             var enemies = [];
 
@@ -212,7 +211,7 @@ define(['boxbox', 'src/character'], function(box, Character) {
             enemies.push(new Character({
                 world: this.world,
                 image: 'img/new-blue-character.png',
-                x:59,
+                x:58,
                 y:6,
                 width:2,
                 height:1.7,
