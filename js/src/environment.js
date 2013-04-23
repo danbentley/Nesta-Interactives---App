@@ -231,7 +231,7 @@ define(['boxbox', 'src/enemy-factory'], function(box, EnemyFactory) {
 
             for (var i=0; i < legOptions.count; i++) {
                 var opts = $.extend(true, {}, options, legOptions);
-                opts.x = options.x + (i * legOptions.widthFactor);
+                opts.x = opts.x + (i * legOptions.widthFactor);
 
                 this.createBlock(opts);
             };
@@ -239,8 +239,8 @@ define(['boxbox', 'src/enemy-factory'], function(box, EnemyFactory) {
             var spans = legOptions.count - 1;
             for (var i=1; i <= spans; i++) {
                 var opts = $.extend({}, options, spanOptions);
-                opts.x = options.x + (i * legOptions.widthFactor - (legOptions.widthFactor / 2));
-                opts.y = options.y - 2;
+                opts.x = opts.x + (i * legOptions.widthFactor - (legOptions.widthFactor / 2));
+                opts.y = opts.y - 2;
 
                 this.createBlock(opts);
             };
@@ -260,31 +260,20 @@ define(['boxbox', 'src/enemy-factory'], function(box, EnemyFactory) {
             return this.createBridge(options);
         },
 
-        createTallStand: function(position) {
-        
-            this.createBlock({
-                x: position.x,
-                y: position.y,
+        createTallStand: function(options) {
+            options.legs = { 
+                count: 2,
+                width: .25,
                 height: 6,
-                width:0.25,
-                density: 25
-            });
-        
-            this.createBlock({
-                x: position.x + 2,
-                y: position.y,
-                height: 6,
-                width: 0.25
-            });
-            
-            this.createBlock({
-                x: position.x + 1,
-                y: position.y - 3.5,
-                width: 3,
-                height: .25
-            });
-        
+                density: 25,
+                widthFactor: 2.5
+            };
+            options.span = { 
+                width: 4,
+                height: .25,
+                y: 5
+            };
+            return this.createBridge(options);
         }
-
     };
 });
