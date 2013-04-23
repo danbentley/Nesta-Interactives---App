@@ -1,4 +1,4 @@
-define(['boxbox', 'src/enemy'], function(box, Enemy) {
+define(['boxbox', 'src/enemy-factory'], function(box, EnemyFactory) {
 
     return {
 
@@ -108,115 +108,75 @@ define(['boxbox', 'src/enemy'], function(box, Enemy) {
 
             var enemies = [];
 
-            enemies.push(new Enemy({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/new-blue-character.png',
+                enemyType: 'blue',
                 x:4.5,
                 y:-4,
-                width:2,
-                height:1.7,
-                imageOffsetX:-.45,
-                imageOffsetY:-.4
             }));
             
-            enemies.push(new Enemy({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/new-green-character.png',
+                enemyType: 'green',
                 x: 10,
                 y: -1,
-                width:2.79,
-                height:3.4,
-                imageOffsetX:-.68,
-                imageOffsetY:-0.86
             }));
             
-            enemies.push(new Enemy({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/new-yellow-character.png',
+                enemyType: 'yellow',
                 x: 16,
                 y: 5,
-                width: 1.5,
-                height: 2.8,
-                imageOffsetX: -.35,
-                imageOffsetY: -.68
             }));
 
-            enemies.push(new Enemy({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/new-red-character.png',
+                enemyType: 'red',
                 x: 28,
                 y: 5,
-                width: 1.2,
-                height: 1,
-                imageOffsetX: -.25,
-                imageOffsetY: -.27
             }));
             
-            enemies.push(new Enemy({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/new-yellow-character.png',
+                enemyType: 'yellow',
                 x: 28,
                 y: -5,
-                width: 1.5,
-                height: 2.8,
-                imageOffsetX: -.35,
-                imageOffsetY: -.68
             }));
 
-            enemies.push(new Enemy({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/new-red-character.png',
+                enemyType: 'red',
                 x:34.5,
                 y:0,
-                width:1.2,
-                height:1,
-                imageOffsetX:-.25,
-                imageOffsetY:-.27
             }));
             
-            enemies.push(new Enemy({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/new-blue-character.png',
+                enemyType: 'blue',
                 x:34.5,
                 y:6,
-                width:2,
-                height:1.7,
-                imageOffsetX:-.45,
-                imageOffsetY:-.4
             }));
             
-            enemies.push(new Enemy({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/new-red-character.png',
+                enemyType: 'red',
                 x:48,
                 y:7,
-                width:1.2,
-                height:1,
-                imageOffsetX:-.25,
-                imageOffsetY:-.27
             }));
                         
             
-            enemies.push(new Enemy({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/new-green-character.png',
+                enemyType: 'green',
                 x:52,
                 y: 0,
-                width:2.79,
-                height:3.4,
-                imageOffsetX:-.68,
-                imageOffsetY:-0.86
             }));
 
-            enemies.push(new Enemy({
+            enemies.push(new EnemyFactory({
                 world: this.world,
-                image: 'img/new-blue-character.png',
+                enemyType: 'blue',
                 x:58,
                 y:6,
-                width:2,
-                height:1.7,
-                imageOffsetX:-.45,
-                imageOffsetY:-.4
             }));
 
             this.characterCount = enemies.length;
