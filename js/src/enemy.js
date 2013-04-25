@@ -13,7 +13,7 @@ define(['boxbox'], function() {
 
         // The minimum amount of force required to destroy
         // this enemy
-        this.minForce = 5;
+        this.MIN_FORCE = 10;
 
         // An entity is inactive until the world is created.
         // Inactive enemies cannot be destroyed on impact
@@ -45,7 +45,7 @@ define(['boxbox'], function() {
     };
 
     Enemy.prototype.isForceStrongEnough = function(force) {
-        return (force > this.minForce);
+        return (force > this.MIN_FORCE);
     };
 
     Enemy.prototype.destroy = function() {
