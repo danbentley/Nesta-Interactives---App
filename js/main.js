@@ -32,9 +32,18 @@ if (isCanvasSupported()) {
 	    'img/player/player-7.png',
 	    'img/player/player-8.png',
 	    'img/player/player-9.png',
-	    'img/blue-character.png',
-	    'img/blue-character-dead.png',
-	    'img/blue-character-dying.png',
+	    'img/enemy/blue.png',
+	    'img/enemy/blue-dead.png',
+	    'img/enemy/blue-dying.png',
+	    'img/enemy/green.png',
+	    'img/enemy/green-dead.png',
+	    'img/enemy/green-dying.png',
+	    'img/enemy/red.png',
+	    'img/enemy/red-dead.png',
+	    'img/enemy/red-dying.png',
+	    'img/enemy/yellow.png',
+	    'img/enemy/yellow-dead.png',
+	    'img/enemy/yellow-dying.png',
 	]);
 	
 	app.init();
