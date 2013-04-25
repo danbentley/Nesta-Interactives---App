@@ -26,11 +26,13 @@ define(['src/environment', 'src/player', 'src/score'], function(environment, pla
         CAMERA_OFFSET: {
             x: -10,
         },
+        $stats: $('#stats'),
 
         init: function() {
 
             score.init();
 
+            this.$stats.show();
             this.environment = environment;
             this.environment.init();
 
@@ -88,13 +90,14 @@ define(['src/environment', 'src/player', 'src/score'], function(environment, pla
 
             $(window).on('characters.destroyed', $.proxy(function() {
                 $(window).trigger('game.over', [this.shotCount]);
+                this.$stats.hide();
             }, this));
         },
 
         updateStats: function() {
-            $('#stats .angle').html(Math.round(this.player.angle));
-            $('#stats .power').html(this.player.power + '/' + this.player.MAX_POWER);
-            $('#stats .shot-count').html(this.shotCount);
+            this.$stats.find('.angle').html(Math.round(this.player.angle));
+            this.$stats.find('.power').html(this.player.power + '/' + this.player.MAX_POWER);
+            this.$stats.find('.shot-count').html(this.shotCount);
         },
 
         startPan: function() {
