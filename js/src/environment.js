@@ -72,17 +72,19 @@ define(['boxbox', 'src/enemy-factory'], function(box, EnemyFactory) {
             this.createTallStand({ x:9, y:7 });
             this.createStand({ x:14, y:10 });
 
-            this.createStand({ x:27, y:10 });
-            this.createStand({ x:27, y:7 });
-            this.createStand({ x:27, y:4 });
-            this.createStand({ x:27, y:1 });
+            this.createTower({ x:27, y:10, levels:4 });
+            /*this.createStand({ x:27, y:10 });*/
+            /*this.createStand({ x:27, y:7 });*/
+            /*this.createStand({ x:27, y:4 });*/
+            /*this.createStand({ x:27, y:1 });*/
             
-            this.createStand({ x:33, y:10 });
-            this.createStand({ x:33, y:7 });
-            this.createStand({ x:33, y:4 });
-            this.createStand({ x:33, y:1 });
-            this.createStand({ x:33, y:-2 });
-            this.createStand({ x:33, y:-5 });
+            this.createTower({ x:33, y:10, levels:6 });
+            /*this.createStand({ x:33, y:10 });*/
+            /*this.createStand({ x:33, y:7 });*/
+            /*this.createStand({ x:33, y:4 });*/
+            /*this.createStand({ x:33, y:1 });*/
+            /*this.createStand({ x:33, y:-2 });*/
+            /*this.createStand({ x:33, y:-5 });*/
 
             this.createBridge({ x:45, y:10, legs: { count:7 }});
             this.createBridge({ x:47, y:7, legs: { count:6 }});
@@ -274,6 +276,15 @@ define(['boxbox', 'src/enemy-factory'], function(box, EnemyFactory) {
                 y: 5
             };
             return this.createBridge(options);
+        },
+
+        createTower: function(options) {
+            var levels = ("levels" in options) ? options.levels : 4;
+
+            for (var i=0; i < levels; i++) {
+                options.y -= 2.5;
+                this.createStand(options);
+            };
         }
     };
 });
