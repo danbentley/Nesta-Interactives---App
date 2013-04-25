@@ -73,18 +73,7 @@ define(['boxbox', 'src/enemy-factory'], function(box, EnemyFactory) {
             this.createStand({ x:14, y:10 });
 
             this.createTower({ x:27, y:10, levels:4 });
-            /*this.createStand({ x:27, y:10 });*/
-            /*this.createStand({ x:27, y:7 });*/
-            /*this.createStand({ x:27, y:4 });*/
-            /*this.createStand({ x:27, y:1 });*/
-            
             this.createTower({ x:33, y:10, levels:6 });
-            /*this.createStand({ x:33, y:10 });*/
-            /*this.createStand({ x:33, y:7 });*/
-            /*this.createStand({ x:33, y:4 });*/
-            /*this.createStand({ x:33, y:1 });*/
-            /*this.createStand({ x:33, y:-2 });*/
-            /*this.createStand({ x:33, y:-5 });*/
 
             this.createBridge({ x:45, y:10, legs: { count:7 }});
             this.createBridge({ x:47, y:7, legs: { count:6 }});
@@ -279,11 +268,19 @@ define(['boxbox', 'src/enemy-factory'], function(box, EnemyFactory) {
         },
 
         createTower: function(options) {
-            var levels = ("levels" in options) ? options.levels : 4;
 
-            for (var i=0; i < levels; i++) {
-                options.y -= 2.5;
-                this.createStand(options);
+            var defaults = {
+                // How many 'stands' the tower shoud be constructed from
+                levels: 1,
+                // The height difference between the levels
+                levelHeight: 2.5
+            }
+
+            var opts = $.extend({}, defaults, options);
+
+            for (var i=0; i < opts.levels; i++) {
+                opts.y -= opts.levelHeight;
+                this.createStand(opts);
             };
         }
     };
