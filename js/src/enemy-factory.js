@@ -17,7 +17,7 @@ define(['src/enemy'], function(Enemy) {
             height: 1.7,
             imageOffsetX: -.45,
             imageOffsetY: -.4,
-            image: 'img/new-blue-character.png'
+            image: 'img/enemy/blue.png'
         }
         $.extend(options, defaults);
 
@@ -32,7 +32,7 @@ define(['src/enemy'], function(Enemy) {
             height: 1,
             imageOffsetX: -.25,
             imageOffsetY: -.27,
-            image: 'img/new-red-character.png'
+            image: 'img/enemy/red.png'
         }
         $.extend(options, defaults);
 
@@ -47,7 +47,7 @@ define(['src/enemy'], function(Enemy) {
             height: 2.8,
             imageOffsetX: -.35,
             imageOffsetY: -.68,
-            image: 'img/new-yellow-character.png'
+            image: 'img/enemy/yellow.png'
         }
         $.extend(options, defaults);
 
@@ -62,7 +62,7 @@ define(['src/enemy'], function(Enemy) {
             height:3.4,
             imageOffsetX:-.68,
             imageOffsetY:-0.86,
-            image: 'img/new-green-character.png'
+            image: 'img/enemy/green.png'
         }
         $.extend(options, defaults);
 

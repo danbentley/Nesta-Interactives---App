@@ -1,11 +1,11 @@
 require.config({
-	shim: {
-		'boxbox': ['box2dweb']
-	},
-	paths: {
-		'boxbox': 'lib/boxbox/boxbox.min',
-		'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min'
-	}
+    shim: {
+	'boxbox': ['box2dweb']
+    },
+    paths: {
+	'boxbox': 'lib/boxbox/boxbox.min',
+	'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min'
+    }
 });
 
 /**
@@ -14,12 +14,29 @@ require.config({
  * will and attempt to run and error on IE<9.
  */
 function isCanvasSupported(){
-  var elem = document.createElement('canvas');
-  return !!(elem.getContext && elem.getContext('2d'));
+    var elem = document.createElement('canvas');
+    return !!(elem.getContext && elem.getContext('2d'));
 }
 
 if (isCanvasSupported()) {
-	require(['src/app'], function(app) {
-		app.init();
-	});
+    require(['src/app', 'src/asset-preloader'], function(app, imagePreloader) {
+
+	imagePreloader.preload([
+	    'img/player/player-0.png',
+	    'img/player/player-1.png',
+	    'img/player/player-2.png',
+	    'img/player/player-3.png',
+	    'img/player/player-4.png',
+	    'img/player/player-5.png',
+	    'img/player/player-6.png',
+	    'img/player/player-7.png',
+	    'img/player/player-8.png',
+	    'img/player/player-9.png',
+	    'img/blue-character.png',
+	    'img/blue-character-dead.png',
+	    'img/blue-character-dying.png',
+	]);
+	
+	app.init();
+    });
 }
