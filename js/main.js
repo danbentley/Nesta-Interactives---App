@@ -4,7 +4,8 @@ require.config({
     },
     paths: {
 	'boxbox': 'lib/boxbox/boxbox.min',
-	'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min'
+	'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min',
+	'main': 'main-built'
     }
 });
 
@@ -20,7 +21,6 @@ function isCanvasSupported(){
 
 if (isCanvasSupported()) {
     require(['src/app', 'src/asset-preloader'], function(app, imagePreloader) {
-
 	imagePreloader.preload([
 	    'img/player/player-0.png',
 	    'img/player/player-1.png',
