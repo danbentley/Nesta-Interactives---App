@@ -1,55 +1,55 @@
 <!doctype html>
 
 <html>
-  <head>
-      <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
-  </head>
-  <body>
-    <div class="interactive-wrapper">
-        <div id="app" class="app interactive">
-            <canvas id="game" width="697" height="368">
+    <head>
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
+    </head>
+    <body>
+        <div class="interactive-wrapper">
+            <div id="app" class="app interactive">
+                <canvas id="game" width="697" height="368">
                 <div class="message-overlay"></div>
-                        <div class="message">
-                                <h3>Oh fiddlesticks!</h3>
-                                <p>Your browser <strong>does not</strong> support awesome stuff.</p>
-                        </div>
-            </canvas>
-            
-            <ul id="stats">
-                <li>Angle: <span class="angle">0</span></li>
-                <li>Power: <span class="power">0</span></li>
-                <li>Shot count: <span class="shot-count">0</span></li>
-            </ul>
-			
-			<div class="end-screen">
-				<h3>You obliterated everything<br> with a shot count of&hellip;</h3>
-				
-				<span class="final-score">
-					<span class="number no-5 orange">5</span>
-					<span class="number no-6 green">6</span>
-					<span class="number no-7 blue">7</span>
-				</span>
-			</div>
+                <div class="message">
+                    <h3>Oh fiddlesticks!</h3>
+                    <p>Your browser <strong>does not</strong> support awesome stuff.</p>
+                </div>
+                </canvas>
 
-        </div>
-        
-        <div class="instructions">
-            <h2>Information</h2>
-            <div>
-                <p>Get the right angle and speed of the red character by clicking on him and pulling back with your mouse.</p>
-                <p>Hit the other characters to do some serious damage!</p>
+                <ul id="stats">
+                    <li>Angle: <span class="angle">0</span></li>
+                    <li>Power: <span class="power">0</span></li>
+                    <li>Shot count: <span class="shot-count">0</span></li>
+                </ul>
+
+                <div class="end-screen">
+                    <h3>You obliterated everything<br> with a shot count of&hellip;</h3>
+
+                    <span class="final-score">
+                        <span class="number no-5 orange">5</span>
+                        <span class="number no-6 green">6</span>
+                        <span class="number no-7 blue">7</span>
+                    </span>
+                </div>
+
             </div>
-			
-			<div class="preload-text-sprites">
-				<div class="blue"></div>
-				<div class="green"></div>
-				<div class="orange"></div>
-				<div class="red"></div>
-			</div>
+
+            <div class="instructions">
+                <h2>Information</h2>
+                <div>
+                    <p>Get the right angle and speed of the yellow character by clicking on him and pulling back with your mouse.</p>
+                    <p>Hit the other characters to do some serious damage!</p>
+                </div>
+
+                <div class="preload-text-sprites">
+                    <div class="blue"></div>
+                    <div class="green"></div>
+                    <div class="orange"></div>
+                    <div class="red"></div>
+                </div>
+            </div>
+
         </div>
 
-    </div>
-
-    <script data-main="js/main.js" src="js/lib/require-jquery.js"></script>
-  </body>
+        <script data-main="js/main-built" src="js/lib/require-jquery.js"></script>
+    </body>
 </html>
