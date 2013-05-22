@@ -3,6 +3,7 @@ require.config({
 	'boxbox': ['box2dweb']
     },
     paths: {
+	'jquery': 'lib/jquery.min',
 	'boxbox': 'lib/boxbox/boxbox.min',
 	'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min',
 	'main': 'main-built'
