@@ -3,6 +3,6 @@ Stuff](http://makethingsdostuff.co.uk/).
 
 <http://makethingsdostuff.co.uk/make/apps>
 
-    ## Cloning
+### Cloning
 
 Run `git clone --recursive <path-to-repo>` to fetch any submodules
