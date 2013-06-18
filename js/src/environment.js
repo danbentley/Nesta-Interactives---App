@@ -8,7 +8,7 @@ define(['boxbox', 'src/enemy-factory'], function(box, EnemyFactory) {
 
         characterCount: 0,
 
-        enemies: [],
+        characters: [],
 
         destroyedEnemyIds: [],
 
