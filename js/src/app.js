@@ -27,6 +27,7 @@ define(['src/environment', 'src/player', 'src/score'], function(environment, pla
             x: -10,
         },
         $stats: $('#stats'),
+        $game: $('#game'),
 
         init: function() {
 
@@ -47,7 +48,7 @@ define(['src/environment', 'src/player', 'src/score'], function(environment, pla
 
         addListeners: function() {
 
-            $(window).on('mousedown', $.proxy(function(e) {
+            this.$game.on('mousedown', $.proxy(function(e) {
                 this.offsetStart = {
                     x:e.screenX,
                     y:e.screenY
@@ -75,7 +76,7 @@ define(['src/environment', 'src/player', 'src/score'], function(environment, pla
             }, this));
 
             $(window).on('mouseup', $.proxy(function(e) {
-                if (!this.player.canMove()) return;
+                if (!this.clicked || !this.player.canMove()) return;
                 this.player.fire();
                 this.clicked = false;
             }, this));
