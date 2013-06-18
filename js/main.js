@@ -5,7 +5,8 @@ require.config({
     paths: {
 	'jquery': 'lib/jquery.min',
 	'boxbox': 'lib/boxbox/boxbox.min',
-	'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min'
+	'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min',
+	'configHandler': 'src/config-handler'
     }
 });
 
@@ -49,3 +50,9 @@ if (isCanvasSupported()) {
 	app.init();
     });
 }
+
+require(['configHandler'], function(configHandler) {
+    $(document).ready(function() {
+        configHandler.init();
+    });
+});
