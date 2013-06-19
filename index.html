@@ -3,6 +3,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="screen" charset="utf-8">
     </head>
     <body>
         <div class="interactive-wrapper">
@@ -46,10 +47,31 @@
                     <div class="orange"></div>
                     <div class="red"></div>
                 </div>
+
+                <div class="form-row">
+                    <label for="gravity">
+                        Gravity
+                    </label>
+                    <input id="gravity" type="range" min="1" max="15" />
+                </div>
+
+                <div class="form-row">
+                    <label for="player-density">
+                        Player density
+                    </label>
+                    <input id="player-density" type="range" min="1" max="17" />
+                </div>
+
+                <div class="form-row">
+                    <label for="enemy-bounciness">
+                        Enemy bounciness
+                    </label>
+                    <input id="enemy-bounciness" type="range" min="0" max="100" />
+                </div>
             </div>
 
         </div>
 
-        <script data-main="js/main-built" src="js/lib/require.js"></script>
+        <script data-main="js/main" src="js/lib/require.js"></script>
     </body>
 </html>
