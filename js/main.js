@@ -1,12 +1,14 @@
 require.config({
     shim: {
-	'boxbox': ['box2dweb']
+	'boxbox': ['box2dweb'],
+	'slider': ['jquery']
     },
     paths: {
 	'jquery': 'lib/jquery.min',
 	'boxbox': 'lib/boxbox/boxbox.min',
 	'box2dweb': 'lib/boxbox/Box2dWeb-2.1.a.3.min',
-	'configHandler': 'src/config-handler'
+	'configHandler': 'src/config-handler',
+        'slider': 'lib/jquery-ui-1.10.3-custom.min'
     }
 });
 
@@ -56,3 +58,5 @@ require(['configHandler'], function(configHandler) {
         configHandler.init();
     });
 });
+
+require(['lib/jquery-ui-slider-range-polyfill'], function() { });
